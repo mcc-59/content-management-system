@@ -6,6 +6,7 @@
 package com.id.mii.backend.cms.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,10 +25,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class User implements Serializable{
     
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Column(unique = true, nullable = false)
@@ -48,6 +49,7 @@ public class User {
     @Column(nullable = false)
     private boolean isActive;
     
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     private Role role;
     

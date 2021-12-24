@@ -45,6 +45,7 @@ public class Role {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<User> users;
     
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<RolePrivilege> rolePrivileges;
     
