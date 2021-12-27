@@ -6,6 +6,7 @@
 package com.id.mii.backend.cms.controller;
 
 import com.id.mii.backend.cms.model.data.EmailSenderDto;
+import com.id.mii.backend.cms.model.data.RequestQcDto;
 import com.id.mii.backend.cms.service.EmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +34,12 @@ public class EmailController {
     public ResponseEntity<EmailSenderDto> sendEmailForget(@RequestBody EmailSenderDto email) {
         return new ResponseEntity(emailService.sendEmailForget(email), HttpStatus.OK);
     }
+    
+    @PostMapping("/request")
+    public ResponseEntity<RequestQcDto> sendEmailRequest(@RequestBody RequestQcDto request) {
+        return new ResponseEntity(emailService.requestQc(request), HttpStatus.OK);
+    }
+    
+    
     
 }
