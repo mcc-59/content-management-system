@@ -8,6 +8,7 @@ package com.id.mii.backend.cms.service;
 import com.id.mii.backend.cms.model.Token;
 import com.id.mii.backend.cms.model.User;
 import com.id.mii.backend.cms.model.data.EmailSenderDto;
+import com.id.mii.backend.cms.model.data.RequestQcDto;
 import com.id.mii.backend.cms.repository.UserRepository;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -72,6 +73,37 @@ public class EmailService {
         context.setVariable("token", "http://localhost:8087/api/v1/user/update" + token);
 
         return context;
+    }
+    
+    private Context buildContextRequest(String username, Long id, String fullName, String email, String reason) {
+        Context context = new Context();
+        context.setVariable("title", "Pengajuan Sebagai QC oleh, " + username);
+        context.setVariable("id", "ID User " + id);
+        context.setVariable("fullName", "Nama Lengkap: " + fullName);
+        context.setVariable("email", "Email: " + email);
+        context.setVariable("reason", "Alasan: " + reason);
+
+        return context;
+    }
+    
+    public RequestQcDto requestQc(RequestQcDto request){
+        try {
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "utf-8");
+            User user = userRepository.findById(request.getUserId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not valid"));
+
+            String message = templateEngine.process("EmailRequestQc", buildContextRequest(user.getUsername(), user.getId(), user.getFullName(), user.getEmail(), request.getReason()));
+
+            messageHelper.setTo("akhmadmumtaz@gmail.com");
+            messageHelper.setSubject("Pengajuan Sebagai QC");
+            messageHelper.setText(message, true);
+
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException | MailException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+        }
+        return request;
     }
 
 }
