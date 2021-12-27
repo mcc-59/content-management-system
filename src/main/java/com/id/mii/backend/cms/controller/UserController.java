@@ -55,6 +55,11 @@ public class UserController {
         return new ResponseEntity(userService.update(id, user), HttpStatus.OK);
     }
     
+    @PutMapping("/update/{tokenCode}")
+    public User updatePass(@PathVariable ("tokenCode") String code,  @RequestBody User user){
+        return userService.updatePassword(code, user);
+    }
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<User> delete(@PathVariable("id") Long id) {
         return new ResponseEntity(userService.delete(id), HttpStatus.OK);
