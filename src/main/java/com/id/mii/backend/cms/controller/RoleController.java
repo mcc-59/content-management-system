@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/role")
-@PreAuthorize("hasAnyRole('ADMIN')")
+@PreAuthorize("hasRole('ADMIN')")
 public class RoleController {
     private RoleService roleService;
     
@@ -36,25 +36,21 @@ public class RoleController {
         this.roleService = roleService;
     }
     
-    @PreAuthorize("hasAuthority('READ_DATA')")
     @GetMapping
     public ResponseEntity<List<Role>> getAll(){
         return new ResponseEntity(roleService.getAll(), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasAuthority('READ_DATA')")
     @GetMapping("/{id}")
     public ResponseEntity<Role> getById(@PathVariable("id") Long id){
         return new ResponseEntity(roleService.getById(id), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasAuthority('CREATE_DATA')")
     @PostMapping
     public ResponseEntity<Role> create(@RequestBody Role role){
         return new ResponseEntity(roleService.create(role), HttpStatus.CREATED);
     }
     
-    @PreAuthorize("hasAuthority('UPDATE_DATA')")
     @PutMapping("/{id}")
     public ResponseEntity<Role> update(@PathVariable("id") Long id, @RequestBody Role role) {
         return new ResponseEntity(roleService.update(id, role), HttpStatus.OK);
