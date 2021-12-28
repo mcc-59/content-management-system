@@ -38,9 +38,15 @@ public class UserController {
     }
     
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> getAll() {
         return new ResponseEntity(userService.getAll(), HttpStatus.OK);
+    }
+    
+    @GetMapping("/writer")
+    @PreAuthorize("hasRole('QC')")
+    public ResponseEntity<List<User>> findWriter() {
+        return new ResponseEntity(userService.findWriter(), HttpStatus.OK);
     }
     
     @PreAuthorize("hasAnyRole('ADMIN', 'QC')")

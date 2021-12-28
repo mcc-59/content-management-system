@@ -6,12 +6,14 @@
 package com.id.mii.backend.cms.controller;
 
 import com.id.mii.backend.cms.model.Role;
+import com.id.mii.backend.cms.model.User;
 import com.id.mii.backend.cms.service.RoleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,6 +56,11 @@ public class RoleController {
     @PutMapping("/{id}")
     public ResponseEntity<Role> update(@PathVariable("id") Long id, @RequestBody Role role) {
         return new ResponseEntity(roleService.update(id, role), HttpStatus.OK);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Role> delete(@PathVariable("id") Long id) {
+        return new ResponseEntity(roleService.delete(id), HttpStatus.OK);
     }
     
     

@@ -7,12 +7,15 @@ package com.id.mii.backend.cms.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -25,6 +28,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@SQLDelete(sql = "UPDATE tb_user SET deleted = CURRENT_TIMESTAMP WHERE id=?")
+@Where(clause = "deleted IS NULL")
 public class User extends Auditable<String> implements Serializable{
     
     @Id
@@ -45,6 +50,9 @@ public class User extends Auditable<String> implements Serializable{
     
     @Column(nullable = false)
     private Boolean isAccountLocked;
+    
+    @Column(nullable = true)
+    private Timestamp deleted;
     
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
