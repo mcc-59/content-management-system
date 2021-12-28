@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
-//@PreAuthorize("hasAnyRole('ADMIN', 'WRITER')")
+@PreAuthorize("hasAnyRole('ADMIN')")
 public class UserController {
     private UserService userService;
     
@@ -38,26 +38,30 @@ public class UserController {
     }
     
     @GetMapping
-//    @PreAuthorize("hasAuthority('READ_DATA')")
+    @PreAuthorize("hasAuthority('READ_DATA')")
     public ResponseEntity<List<User>> getAll() {
         return new ResponseEntity(userService.getAll(), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasAuthority('READ_DATA')")
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") Long id) {
         return new ResponseEntity(userService.getById(id), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasAuthority('CREATE_DATA')")
     @PostMapping
     public ResponseEntity<User> create(@RequestBody User user) {
         return new ResponseEntity(userService.create(user), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasAuthority('UPDATE_DATA')")
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User user) {
         return new ResponseEntity(userService.update(id, user), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasAuthority('DELETE_DATA')")
     @DeleteMapping("/{id}")
     public ResponseEntity<User> delete(@PathVariable("id") Long id) {
         return new ResponseEntity(userService.delete(id), HttpStatus.OK);
