@@ -119,7 +119,7 @@ public class UserService {
             token.setConfirm(dateNow);
 //            String encrypt = appSecurityConfig.passwordEncoder().encode(user.getPassword());
             user1.setPassword(user.getPassword());
-            user1.setAccountLocked(false);
+            user1.setIsAccountLocked(false);
             return userRepository.save(user1);
             }
         }       

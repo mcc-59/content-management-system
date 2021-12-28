@@ -44,10 +44,10 @@ public class User implements Serializable{
     private String fullName;
     
     @Column(nullable = false)
-    private boolean isAccountLocked;
+    private Boolean isAccountLocked;
     
     @Column(nullable = false)
-    private boolean isActive;
+    private Boolean isActive;
     
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
