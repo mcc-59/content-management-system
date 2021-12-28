@@ -5,6 +5,7 @@
  */
 package com.id.mii.backend.cms.service;
 
+import com.id.mii.backend.cms.config.AppSecurityConfig;
 import com.id.mii.backend.cms.model.Role;
 import com.id.mii.backend.cms.model.Token;
 import com.id.mii.backend.cms.model.User;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.MailException;
@@ -32,20 +34,22 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
  */
 
 @Service
+@Slf4j
 public class UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private TokenService tokenService;
     private JavaMailSender javaMailSender;
     private SpringTemplateEngine templateEngine;
-    
-    @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, TokenService tokenService, JavaMailSender javaMailSender, SpringTemplateEngine templateEngine) {
+    private AppSecurityConfig appSecurityConfig;
+
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, TokenService tokenService, JavaMailSender javaMailSender, SpringTemplateEngine templateEngine, AppSecurityConfig appSecurityConfig) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.tokenService = tokenService;
         this.javaMailSender = javaMailSender;
         this.templateEngine = templateEngine;
+        this.appSecurityConfig = appSecurityConfig;
     }
     
     public List<User> getAll(){
@@ -62,18 +66,18 @@ public class UserService {
         Role writerRole = roleRepository.getById(3L);
         
         UUID uuid = UUID.randomUUID();
+        String encrypt = appSecurityConfig.passwordEncoder().encode(uuid.toString());
         
         //SET USER
         User user = User.builder()
                 .username(data.getUsername())
-                .password(uuid.toString())
+                .password(encrypt)
                 .email(data.getEmail())
                 .fullName(data.getFullName())
                 .isAccountLocked(true)
-                .isActive(true)
                 .role(writerRole).build();
         userRepository.save(user);
-        
+        log.info(user.getRole().getName());
         //GENERATE TOKEN
         Token token = tokenService.create(user, 3);
         
@@ -117,8 +121,8 @@ public class UserService {
         if (token.getConfirm() == null) {
             if (dateNow.isBefore(token.getExpired())) {
             token.setConfirm(dateNow);
-//            String encrypt = appSecurityConfig.passwordEncoder().encode(user.getPassword());
-            user1.setPassword(user.getPassword());
+            String encrypt = appSecurityConfig.passwordEncoder().encode(user.getPassword());
+            user1.setPassword(encrypt);
             user1.setIsAccountLocked(false);
             return userRepository.save(user1);
             }
@@ -131,7 +135,7 @@ public class UserService {
         context.setVariable("hello", "Hello, " + username + " !");
         context.setVariable("password", "Your default password = " + password);
         context.setVariable("message", message);
-        context.setVariable("token", "http://localhost:8087/api/v1/user/update" + token);
+        context.setVariable("token", "http://localhost:8087/api/v1/profile/" + token);
 
         return context;
     }
