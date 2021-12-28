@@ -39,6 +39,6 @@ public class Privilege {
     @Column(nullable = false)
     private String name;
     
-    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RolePrivilege> rolePrivileges;
 }

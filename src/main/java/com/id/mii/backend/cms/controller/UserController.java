@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
+//@PreAuthorize("hasAnyRole('ADMIN', 'WRITER')")
 public class UserController {
     private UserService userService;
     
@@ -36,6 +38,7 @@ public class UserController {
     }
     
     @GetMapping
+//    @PreAuthorize("hasAuthority('READ_DATA')")
     public ResponseEntity<List<User>> getAll() {
         return new ResponseEntity(userService.getAll(), HttpStatus.OK);
     }
@@ -53,11 +56,6 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User user) {
         return new ResponseEntity(userService.update(id, user), HttpStatus.OK);
-    }
-    
-    @PutMapping("/update/{tokenCode}")
-    public User updatePass(@PathVariable ("tokenCode") String code,  @RequestBody User user){
-        return userService.updatePassword(code, user);
     }
     
     @DeleteMapping("/{id}")
