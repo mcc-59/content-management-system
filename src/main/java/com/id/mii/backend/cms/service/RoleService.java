@@ -41,7 +41,9 @@ public class RoleService {
     }
     
     public Role update(Long id, Role data){
-        getById(id);
+        Role role = getById(id);
+        data.setCreatedBy(role.getCreatedBy());
+        data.setCreatedDate(role.getCreatedDate());
         data.setId(id);
         return roleRepository.save(data);
     }
