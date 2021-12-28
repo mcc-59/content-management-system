@@ -72,5 +72,5 @@ public class Content {
     private Long views;
     
     @Column(name = "is_locked", nullable = false)
-    private boolean isLocked;
+    private Boolean isLocked;
 }
