@@ -39,10 +39,6 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
-    private List<Media> medias;
-    
     @ManyToOne
     private User user;
     
@@ -67,6 +63,10 @@ public class Content {
     
     @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
+    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
+    private List<Media> medias;
     
     @Column(nullable = false)
     private Long views;
