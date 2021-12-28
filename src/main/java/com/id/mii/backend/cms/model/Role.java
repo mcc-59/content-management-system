@@ -46,7 +46,7 @@ public class Role {
     private List<User> users;
     
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RolePrivilege> rolePrivileges;
     
 }

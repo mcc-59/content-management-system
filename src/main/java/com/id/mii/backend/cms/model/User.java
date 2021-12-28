@@ -46,9 +46,6 @@ public class User implements Serializable{
     @Column(nullable = false)
     private Boolean isAccountLocked;
     
-    @Column(nullable = false)
-    private Boolean isActive;
-    
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     private Role role;
@@ -58,7 +55,7 @@ public class User implements Serializable{
     private List<Token> tokens;
     
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Content> contents;
     
     
