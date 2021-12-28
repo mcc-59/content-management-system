@@ -6,6 +6,7 @@
 package com.id.mii.backend.cms.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +21,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -32,7 +35,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Role {
+@SQLDelete(sql = "UPDATE tb_role SET deleted = CURRENT_TIMESTAMP WHERE id=?")
+@Where(clause = "deleted IS NULL")
+public class Role extends Auditable<String> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +45,9 @@ public class Role {
     
     @Column(nullable = false, unique = true)
     private String name;
+    
+    @Column(nullable = true)
+    private Timestamp deleted;
     
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)

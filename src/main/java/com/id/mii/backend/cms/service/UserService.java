@@ -56,6 +56,10 @@ public class UserService {
         return userRepository.findAll();
     }
     
+    public List<User> findWriter(){
+        return userRepository.listWriter();
+    }
+    
     public User getById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> 

@@ -6,6 +6,7 @@
 package com.id.mii.backend.cms.service;
 
 import com.id.mii.backend.cms.model.Role;
+import com.id.mii.backend.cms.model.User;
 import com.id.mii.backend.cms.repository.RoleRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,17 @@ public class RoleService {
     }
     
     public Role update(Long id, Role data){
-        getById(id);
+        Role role = getById(id);
+        data.setCreatedBy(role.getCreatedBy());
+        data.setCreatedDate(role.getCreatedDate());
         data.setId(id);
         return roleRepository.save(data);
+    }
+    
+    public Role delete(Long id){
+        Role role = getById(id);
+        roleRepository.deleteById(id);
+        return role;
     }
     
     

@@ -7,6 +7,7 @@ package com.id.mii.backend.cms.config;
 
 import com.id.mii.backend.cms.service.AppUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -32,6 +33,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
         this.appUserDetailService = appUserDetailService;
     }
     
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
