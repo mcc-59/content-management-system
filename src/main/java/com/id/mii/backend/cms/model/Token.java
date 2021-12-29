@@ -51,4 +51,6 @@ public class Token {
     
     @ManyToOne
     private User user;
+    
+    private Boolean isActive;
 }
