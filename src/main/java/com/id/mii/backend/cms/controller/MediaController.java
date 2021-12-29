@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/media")
-@PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
 public class MediaController {
 
     private final MediaService mediaService;
@@ -37,31 +36,31 @@ public class MediaController {
         this.mediaService = mediaService;
     }
 
-    @PreAuthorize("hasAuthority('READ_DATA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping
     public ResponseEntity<List<Media>> getAll() {
         return new ResponseEntity(mediaService.getAll(), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('READ_DATA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping("/{id}")
     public ResponseEntity<Media> getById(@PathVariable("id") Long id) {
         return new ResponseEntity(mediaService.getById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('CREATE_DATA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @PostMapping
     public ResponseEntity<Media> create(@RequestBody Media media) {
         return new ResponseEntity(mediaService.create(media), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('UPDATE_DATA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @PutMapping("/{id}")
     public ResponseEntity<Media> update(@PathVariable("id") Long id, @RequestBody Media media) {
         return new ResponseEntity(mediaService.update(id, media), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('DELETE_DATA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Media> delete(@PathVariable("id") Long id) {
         return new ResponseEntity(mediaService.delete(id), HttpStatus.OK);

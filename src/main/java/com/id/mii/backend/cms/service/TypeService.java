@@ -52,4 +52,11 @@ public class TypeService {
 
         return typeRepository.save(type);
     }
+    
+    public Type delete(Long id) {
+        Type type = getById(id);
+        typeRepository.deleteById(id);
+
+        return type;
+    }
 }

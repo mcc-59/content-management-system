@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/category")
-@PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -37,31 +36,31 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PreAuthorize("hasAuthority('READ_DATA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping
     public ResponseEntity<List<Category>> getAll() {
         return new ResponseEntity(categoryService.getAll(), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('READ_DATA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping("/{id}")
     public ResponseEntity<Category> getById(@PathVariable("id") Long id) {
         return new ResponseEntity(categoryService.getById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('CREATE_DATA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'QC')")
     @PostMapping
     public ResponseEntity<Category> create(@RequestBody Category category) {
         return new ResponseEntity(categoryService.create(category), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('UPDATE_DATA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'QC')")
     @PutMapping("/{id}")
     public ResponseEntity<Category> update(@PathVariable("id") Long id, @RequestBody Category category) {
         return new ResponseEntity(categoryService.update(id, category), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('DELETE_DATA')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Category> delete(@PathVariable("id") Long id) {
         return new ResponseEntity(categoryService.delete(id), HttpStatus.OK);
