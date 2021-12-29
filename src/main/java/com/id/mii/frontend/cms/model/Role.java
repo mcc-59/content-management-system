@@ -5,8 +5,6 @@
  */
 package com.id.mii.frontend.cms.model;
 
-import javax.validation.constraints.NotEmpty;
-import com.id.mii.frontend.cms.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,19 +19,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class Role {
     
     private Long id;
     
-//    @NotEmpty(message = "Username Cannot be Empty")
-    private String username;
-    
-//    @NotEmpty(message = "Email Cannot be Empty")
-    private String email;
-    
-//    @NotEmpty(message = "Full Name Cannot be Empty")
-    private String fullName;
-    
-    private Role role;
+    private String name;
+
+    public Role(Long id) {
+        this.id = id;
+    }
     
 }
