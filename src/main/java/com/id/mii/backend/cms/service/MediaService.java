@@ -48,6 +48,8 @@ public class MediaService {
     public Media update(Long id, Media media) {
         getById(id);
         
+        media.setCreatedBy(media.getCreatedBy());
+        media.setCreatedDate(media.getCreatedDate());
         media.setId(id);
         
         return mediaRepository.save(media);

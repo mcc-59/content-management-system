@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Type {
+public class Type extends Auditable<String> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
