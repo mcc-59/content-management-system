@@ -38,36 +38,36 @@ public class UserController {
     }
     
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> getAll() {
         return new ResponseEntity(userService.getAll(), HttpStatus.OK);
     }
     
     @GetMapping("/writer")
-    @PreAuthorize("hasRole('QC')")
+//    @PreAuthorize("hasRole('QC')")
     public ResponseEntity<List<User>> findWriter() {
         return new ResponseEntity(userService.findWriter(), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC')")
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") Long id) {
         return new ResponseEntity(userService.getById(id), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<User> create(@RequestBody User user) {
         return new ResponseEntity(userService.create(user), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User user) {
         return new ResponseEntity(userService.update(id, user), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<User> delete(@PathVariable("id") Long id) {
         return new ResponseEntity(userService.delete(id), HttpStatus.OK);

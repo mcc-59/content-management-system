@@ -43,10 +43,8 @@ public class RoleService {
     
     public Role update(Long id, Role data){
         Role role = getById(id);
-        data.setCreatedBy(role.getCreatedBy());
-        data.setCreatedDate(role.getCreatedDate());
-        data.setId(id);
-        return roleRepository.save(data);
+        role.setName(data.getName());
+        return roleRepository.save(role);
     }
     
     public Role delete(Long id){
