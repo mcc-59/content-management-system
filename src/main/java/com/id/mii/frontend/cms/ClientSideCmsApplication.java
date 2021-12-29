@@ -8,6 +8,7 @@ public class ClientSideCmsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ClientSideCmsApplication.class, args);
+                System.out.println("Aplikasi Berjalan");
 	}
 
 }
