@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>List Writer</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <h1>List Writer</h1>
+        <a th:href="@{/user/form}">Add New</a>
+        <table border="1" style="margin-top: 1rem;">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user, i : ${users}">
+                    <td th:text="${i.index + 1}"></td>
+                    <td th:text="${user.fullName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.role.name}"></td>
+                    <td>
+                        <a th:href="@{/user/form/{id} (id = ${user.id})}">Update</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
