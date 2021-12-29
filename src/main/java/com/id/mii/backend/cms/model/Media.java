@@ -5,6 +5,7 @@
  */
 package com.id.mii.backend.cms.model;
 
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -24,6 +27,8 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Table(name = "tb_media")
+@SQLDelete(sql = "UPDATE tb_media SET deleted = CURRENT_TIMESTAMP WHERE id=?")
+@Where(clause = "deleted IS NULL")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,4 +44,7 @@ public class Media extends Auditable<String> {
 
     @ManyToOne
     private Content content;
+    
+    @Column(nullable = true)
+    private Timestamp deleted;
 }
