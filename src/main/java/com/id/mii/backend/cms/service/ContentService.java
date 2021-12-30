@@ -50,7 +50,7 @@ public class ContentService {
         this.typeService = typeService;
         this.statusService = statusService;
     }
-
+    
     public List<Content> getAll() {
         return contentRepository.findAll();
     }
@@ -63,10 +63,10 @@ public class ContentService {
     }
 
     @Transactional
-    public Content create(ContentDto contentDto) {
-        User user = userService.getById(contentDto.getUser().getId());
-        Status status = statusService.getById(contentDto.getStatus().getId());
-        Type type = typeService.getById(contentDto.getType().getId());
+    public ContentDto create(ContentDto contentDto) {
+        User user = userService.getById(contentDto.getUser());
+        Status status = statusService.getById(1L);
+        Type type = typeService.getById(contentDto.getType());
         
         Content contentData = Content
                 .builder()
@@ -78,23 +78,22 @@ public class ContentService {
                 .title(contentDto.getTitle())
                 .body(contentDto.getBody())
                 .views(contentDto.getViews())
-                .isLocked(contentDto.isLocked())
+                .isLocked(contentDto.getIsLocked())
                 .build();
 
         Content content = contentRepository.save(contentData);
         
         List<ContentCategory> contentCategories = contentDto.getCategories()
                 .stream()
-                .map(category -> categoryService.getById(category.getId()))
                 .map(category -> ContentCategory
                     .builder()
                     .id(ContentCategoryKey
                         .builder()
                         .contentId(content.getId())
-                        .categoryId(category.getId())
+                        .categoryId(category)
                         .build())
                     .content(content)
-                    .category(category)
+                    .category(categoryService.getById(category))
                     .build())
                 .collect(Collectors.toList());
 
@@ -104,14 +103,14 @@ public class ContentService {
                 .stream()
                 .map(media -> Media
                     .builder()
-                    .path(media.getPath())
+                    .path(media)
                     .content(content)
                     .build())
                 .collect(Collectors.toList());
         
         mediaRepository.saveAll(medias);
         
-        return content;
+        return contentDto;
     }
 
     public Content update(Long id, Content content) {
@@ -121,6 +120,12 @@ public class ContentService {
         content.setCreatedDate(content.getCreatedDate());
         content.setId(id);
 
+        return contentRepository.save(content);
+    }
+    
+    public Content countViews(Long id) {
+        Content content = getById(id);
+        content.setViews(content.getViews() + 1);
         return contentRepository.save(content);
     }
 

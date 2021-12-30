@@ -34,7 +34,6 @@ public class ProfileController {
     }
     
     @PutMapping("/{tokenCode}")
-    @PreAuthorize("hasAuthority('READ_DATA')")
     public User updatePass(@PathVariable ("tokenCode") String code,  @RequestBody User user){
         return userService.updatePassword(code, user);
     }

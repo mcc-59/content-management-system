@@ -46,6 +46,7 @@ public class ContentController {
     @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping("/{id}")
     public ResponseEntity<Content> getById(@PathVariable("id") Long id) {
+        contentService.countViews(id);
         return new ResponseEntity(contentService.getById(id), HttpStatus.OK);
     }
 
