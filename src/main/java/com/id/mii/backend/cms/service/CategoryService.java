@@ -48,6 +48,8 @@ public class CategoryService {
     public Category update(Long id, Category category) {
         getById(id);
         
+        category.setCreatedBy(category.getCreatedBy());
+        category.setCreatedDate(category.getCreatedDate());
         category.setId(id);
         
         return categoryRepository.save(category);

@@ -6,6 +6,7 @@
 package com.id.mii.backend.cms.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -22,6 +23,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -29,11 +32,13 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Table(name = "tb_content")
+@SQLDelete(sql = "UPDATE tb_content SET deleted = CURRENT_TIMESTAMP WHERE id=?")
+@Where(clause = "deleted IS NULL")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Content {
+public class Content extends Auditable<String> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,5 +77,8 @@ public class Content {
     private Long views;
     
     @Column(name = "is_locked", nullable = false)
-    private boolean isLocked;
+    private Boolean isLocked;
+    
+    @Column(nullable = true)
+    private Timestamp deleted;
 }

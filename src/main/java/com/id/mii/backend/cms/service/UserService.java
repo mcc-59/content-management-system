@@ -107,7 +107,7 @@ public class UserService {
         user.setEmail(data.getEmail());
         user.setFullName(data.getFullName());
         user.setUsername(data.getUsername());
-        return userRepository.save(data);
+        return userRepository.save(user);
     }
     
     public User delete(Long id){

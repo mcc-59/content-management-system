@@ -6,11 +6,11 @@
 package com.id.mii.backend.cms.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +20,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -27,11 +29,13 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Table(name = "tb_category")
+@SQLDelete(sql = "UPDATE tb_category SET deleted = CURRENT_TIMESTAMP WHERE id=?")
+@Where(clause = "deleted IS NULL")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Category {
+public class Category extends Auditable<String> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +47,7 @@ public class Category {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<ContentCategory> contentCategories;
+    
+    @Column(nullable = true)
+    private Timestamp deleted;
 }
