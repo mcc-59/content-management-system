@@ -62,5 +62,10 @@ public class UserController {
         userService.create(user);
         return "redirect:/user";
     }
+    
+    @GetMapping("/home")
+    public String home(){
+        return "layout/home";
+    }
   
 }
