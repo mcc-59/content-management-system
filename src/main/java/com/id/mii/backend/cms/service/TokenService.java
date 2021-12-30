@@ -46,7 +46,7 @@ public class TokenService {
         LocalDateTime expired = LocalDateTime.now().plusDays(dayExpired);
         
         Token token = Token.builder().tokenCode(uuid.toString()).user(user)
-                .created(created).expired(expired).build();
+                .created(created).expired(expired).isActive(true).build();
         
         return tokenRepository.save(token);
     }

@@ -103,8 +103,10 @@ public class UserService {
     }
     
     public User update(Long id, User data){
-        getById(id);
-        data.setId(id);
+        User user = getById(id);
+        user.setEmail(data.getEmail());
+        user.setFullName(data.getFullName());
+        user.setUsername(data.getUsername());
         return userRepository.save(data);
     }
     
@@ -125,6 +127,7 @@ public class UserService {
         if (token.getConfirm() == null) {
             if (dateNow.isBefore(token.getExpired())) {
             token.setConfirm(dateNow);
+            token.setIsActive(false);
             String encrypt = appSecurityConfig.passwordEncoder().encode(user.getPassword());
             user1.setPassword(encrypt);
             user1.setIsAccountLocked(false);

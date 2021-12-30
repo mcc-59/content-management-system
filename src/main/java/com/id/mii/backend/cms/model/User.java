@@ -54,8 +54,8 @@ public class User extends Auditable<String> implements Serializable{
     @Column(nullable = true)
     private Timestamp deleted;
     
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
     
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
