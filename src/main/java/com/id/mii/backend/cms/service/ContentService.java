@@ -11,12 +11,14 @@ import com.id.mii.backend.cms.model.Media;
 import com.id.mii.backend.cms.model.Status;
 import com.id.mii.backend.cms.model.Type;
 import com.id.mii.backend.cms.model.User;
+import com.id.mii.backend.cms.model.data.CategoryDto;
 import com.id.mii.backend.cms.model.data.ContentDto;
 import com.id.mii.backend.cms.model.key.ContentCategoryKey;
 import com.id.mii.backend.cms.repository.ContentCategoryRepository;
 import com.id.mii.backend.cms.repository.ContentRepository;
 import com.id.mii.backend.cms.repository.MediaRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +53,27 @@ public class ContentService {
         this.statusService = statusService;
     }
     
-    public List<Content> getAll() {
-        return contentRepository.findAll();
+    public List<CategoryDto> getAll() {
+        List<Content> findAll = contentRepository.findAll();
+        List<CategoryDto> categoryDtos = new ArrayList<>();
+        
+        findAll.forEach(data -> {
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setUser(data.getUser());
+            categoryDto.setTitle(data.getTitle());
+            data.getContentCategories().forEach(contentCategory -> {
+                categoryDto.getCategories().add(contentCategory.getCategory().getName());
+            });
+            data.getMedias().forEach(media -> {
+                categoryDto.getMedias().add(media.getPath());
+            });
+            categoryDto.setBody(data.getBody());
+            categoryDto.setViews(data.getViews());
+            categoryDto.setIsLocked(data.getIsLocked());
+            categoryDtos.add(categoryDto);
+        });
+        
+        return categoryDtos;
     }
 
     public Content getById(Long id) {
