@@ -36,18 +36,18 @@ public class UserController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("users", userService.getAll());
-        return "UserTemp/index";
+        return "userTemp/index";
     }
     
     @GetMapping("/writer")
     public String listWriter(Model model) {
         model.addAttribute("users", userService.findWriter());
-        return "UserTemp/listWriter";
+        return "userTemp/listWriter";
     }
     
     @GetMapping("/form")
     public String form(User user) {
-        return "UserTemp/addForm";
+        return "userTemp/addForm";
     }
     
     @PostMapping("/form")
