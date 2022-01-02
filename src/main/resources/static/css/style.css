@@ -1,0 +1,16 @@
+@import url("https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css");
+@import url("https://unicons.iconscout.com/release/v4.0.0/css/line.css");
+
+.bg-cream {
+    --bs-bg-opacity: 1;
+  background-color: #faf5ee !important;
+}
+
+.center-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
