@@ -6,3 +6,11 @@
     --bs-bg-opacity: 1;
   background-color: #faf5ee !important;
 }
+
+.center-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
