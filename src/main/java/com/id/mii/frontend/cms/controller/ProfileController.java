@@ -6,9 +6,11 @@
 package com.id.mii.frontend.cms.controller;
 
 import com.id.mii.frontend.cms.model.User;
+import com.id.mii.frontend.cms.model.data.EmailSenderDto;
 import com.id.mii.frontend.cms.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,22 +32,30 @@ public class ProfileController {
     }
     
     
-    @GetMapping("/{tokenCode}")
+    @GetMapping("/activate/{tokenCode}")
     public String activate(@PathVariable ("tokenCode") String code) {
         profileService.activate(code);
         return "activation";
     }
     
+    @GetMapping("/update/{tokenCode}")
+    public String update(@PathVariable ("tokenCode") String code, Model model, User user) {
+        model.addAttribute("token", code);
+        return "updatePass";
+    }
+    
     @PutMapping("/{tokenCode}")
-    public String updatePass(@PathVariable ("tokenCode") String code, @RequestBody User user) {
+    public String updatePass(@PathVariable ("tokenCode") String code, User user) {
         profileService.updatePass(code, user);
-        return "redirect:/";
+        return "redirect:/login";
     }
     
     @GetMapping
-    public String testHTML(){
-        return "activation";
+    public String forgetPass(EmailSenderDto emailSenderDto){
+        return "forgetPass";
     }
+    
+    
     
     
     

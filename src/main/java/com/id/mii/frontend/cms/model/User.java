@@ -34,6 +34,9 @@ public class User {
 //    @NotEmpty(message = "Full Name Cannot be Empty")
     private String fullName;
     
+//    @NotEmpty(message = "Password Cannot be Empty")
+    private String password;
+    
     private Role role;
     
 }

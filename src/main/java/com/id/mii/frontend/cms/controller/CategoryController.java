@@ -5,11 +5,9 @@
  */
 package com.id.mii.frontend.cms.controller;
 
-import com.id.mii.frontend.cms.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -18,20 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-@RequestMapping("/login")
-public class LoginController {
-    
+@RequestMapping("/category")
+public class CategoryController {
     @GetMapping
-    public String login(Model model, User user) {
-        return "login";
+    public String getCategory(Model model) {
+        return "category";
     }
     
-    @PostMapping("/logout")
-    public String logout(){
-//        SecurityContextHolder.getContext().setAuthentication(null);
-        System.out.println("cie logout");
-        return "redirect:/login?logout=true";
+    @GetMapping("/content")
+    public String getContent(Model model) {
+        return "contentHome";
     }
-    
-    
 }
