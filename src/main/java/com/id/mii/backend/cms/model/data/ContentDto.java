@@ -25,25 +25,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ContentDto {
     
-    private User user;
+    private Long user;
     
-    private Status status;
+    private List<Long> categories;
     
-    private LocalDateTime publishDate;
-    
-    private LocalDateTime expiredDate;
-    
-    private List<Category> categories;
-    
-    private Type type;
+    private Long type;
     
     private String title;
     
     private String body;
     
-    private List<Media> medias;
+    private List<String> medias;
     
     private Long views;
     
-    private boolean isLocked;
+    private Boolean isLocked;
 }

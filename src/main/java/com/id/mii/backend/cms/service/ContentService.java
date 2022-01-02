@@ -10,6 +10,7 @@ import com.id.mii.backend.cms.model.ContentCategory;
 import com.id.mii.backend.cms.model.Media;
 import com.id.mii.backend.cms.model.Status;
 import com.id.mii.backend.cms.model.Type;
+import com.id.mii.backend.cms.model.User;
 import com.id.mii.backend.cms.model.data.ContentDto;
 import com.id.mii.backend.cms.model.key.ContentCategoryKey;
 import com.id.mii.backend.cms.repository.ContentCategoryRepository;
@@ -34,20 +35,22 @@ public class ContentService {
     private final ContentRepository contentRepository;
     private final ContentCategoryRepository contentCategoryRepository;
     private final MediaRepository mediaRepository;
+    private final UserService userService;
     private final CategoryService categoryService;
     private final TypeService typeService;
     private final StatusService statusService;
 
     @Autowired
-    public ContentService(ContentRepository contentRepository, ContentCategoryRepository contentCategoryRepository, MediaRepository mediaRepository, CategoryService categoryService, TypeService typeService, StatusService statusService) {
+    public ContentService(ContentRepository contentRepository, ContentCategoryRepository contentCategoryRepository, MediaRepository mediaRepository, UserService userService, CategoryService categoryService, TypeService typeService, StatusService statusService) {
         this.contentRepository = contentRepository;
         this.contentCategoryRepository = contentCategoryRepository;
         this.mediaRepository = mediaRepository;
+        this.userService = userService;
         this.categoryService = categoryService;
         this.typeService = typeService;
         this.statusService = statusService;
     }
-
+    
     public List<Content> getAll() {
         return contentRepository.findAll();
     }
@@ -60,38 +63,37 @@ public class ContentService {
     }
 
     @Transactional
-    public Content create(ContentDto contentDto) {
-//        User user = userService.getById(contentDto.getUser().getId());
-        Status status = statusService.getById(contentDto.getStatus().getId());
-        Type type = typeService.getById(contentDto.getType().getId());
+    public ContentDto create(ContentDto contentDto) {
+        User user = userService.getById(contentDto.getUser());
+        Status status = statusService.getById(1L);
+        Type type = typeService.getById(contentDto.getType());
         
         Content contentData = Content
                 .builder()
-                .user(contentDto.getUser())
-                .status(contentDto.getStatus())
+                .user(user)
+                .status(status)
                 .publishDate(LocalDateTime.now())
                 .expiredDate(LocalDateTime.now().plusDays(14))
                 .type(type)
                 .title(contentDto.getTitle())
                 .body(contentDto.getBody())
                 .views(contentDto.getViews())
-                .isLocked(contentDto.isLocked())
+                .isLocked(contentDto.getIsLocked())
                 .build();
 
         Content content = contentRepository.save(contentData);
         
         List<ContentCategory> contentCategories = contentDto.getCategories()
                 .stream()
-                .map(category -> categoryService.getById(category.getId()))
                 .map(category -> ContentCategory
                     .builder()
                     .id(ContentCategoryKey
                         .builder()
                         .contentId(content.getId())
-                        .categoryId(category.getId())
+                        .categoryId(category)
                         .build())
                     .content(content)
-                    .category(category)
+                    .category(categoryService.getById(category))
                     .build())
                 .collect(Collectors.toList());
 
@@ -101,21 +103,29 @@ public class ContentService {
                 .stream()
                 .map(media -> Media
                     .builder()
-                    .path(media.getPath())
+                    .path(media)
                     .content(content)
                     .build())
                 .collect(Collectors.toList());
         
         mediaRepository.saveAll(medias);
         
-        return content;
+        return contentDto;
     }
 
     public Content update(Long id, Content content) {
         getById(id);
 
+        content.setCreatedBy(content.getCreatedBy());
+        content.setCreatedDate(content.getCreatedDate());
         content.setId(id);
-
+        
+        return contentRepository.save(content);
+    }
+    
+    public Content countViews(Long id) {
+        Content content = getById(id);
+        content.setViews(content.getViews() + 1);
         return contentRepository.save(content);
     }
 

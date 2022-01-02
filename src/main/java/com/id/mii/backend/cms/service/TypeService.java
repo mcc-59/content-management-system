@@ -48,8 +48,17 @@ public class TypeService {
     public Type update(Long id, Type type) {
         getById(id);
 
+        type.setCreatedBy(type.getCreatedBy());
+        type.setCreatedDate(type.getCreatedDate());
         type.setId(id);
 
         return typeRepository.save(type);
+    }
+    
+    public Type delete(Long id) {
+        Type type = getById(id);
+        typeRepository.deleteById(id);
+
+        return type;
     }
 }
