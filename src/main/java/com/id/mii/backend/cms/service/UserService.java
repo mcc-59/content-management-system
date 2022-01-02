@@ -137,12 +137,31 @@ public class UserService {
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Link expired");
     }
     
+    public User activate(String tokenCode){
+        Token token = tokenService.getByTokenCode(tokenCode);
+        
+        User user1 = userRepository.findByUsername(token.getUser().getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Forbidden access"));
+        
+        
+        LocalDateTime dateNow = LocalDateTime.now();
+        if (token.getConfirm() == null) {
+            if (dateNow.isBefore(token.getExpired())) {
+            token.setConfirm(dateNow);
+            token.setIsActive(false);
+            user1.setIsAccountLocked(false);
+            return userRepository.save(user1);
+            }
+        }       
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Link expired");
+    }
+    
     private Context buildContext(String message, String username, String password, String token) {
         Context context = new Context();
         context.setVariable("hello", "Hello, " + username + " !");
         context.setVariable("password", "Your default password = " + password);
         context.setVariable("message", message);
-        context.setVariable("token", "http://localhost:8087/api/v1/profile/" + token);
+        context.setVariable("token", "http://localhost:8089/profile/" + token);
 
         return context;
     }
