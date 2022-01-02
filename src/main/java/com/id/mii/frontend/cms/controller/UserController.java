@@ -63,9 +63,5 @@ public class UserController {
         return "redirect:/user";
     }
     
-    @GetMapping("/home")
-    public String home(){
-        return "layout/home";
-    }
-  
+    
 }
