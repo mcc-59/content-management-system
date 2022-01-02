@@ -70,7 +70,7 @@ public class EmailService {
         Context context = new Context();
         context.setVariable("hello", "Hello, " + username + " !");
         context.setVariable("message", message);
-        context.setVariable("token", "http://localhost:8087/api/v1/profile" + token);
+        context.setVariable("token", "http://localhost:8089/profile/update/" + token);
 
         return context;
     }

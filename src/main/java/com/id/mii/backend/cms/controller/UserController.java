@@ -37,6 +37,11 @@ public class UserController {
         this.userService = userService;
     }
     
+    @PostMapping("/count")
+    public ResponseEntity<Integer> countWriter(){
+        return new ResponseEntity(userService.countWriter(), HttpStatus.OK);
+    }
+    
     @GetMapping
 //    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> getAll() {

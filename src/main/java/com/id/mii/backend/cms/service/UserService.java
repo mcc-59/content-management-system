@@ -60,6 +60,10 @@ public class UserService {
         return userRepository.listWriter();
     }
     
+    public Integer countWriter(){
+        return userRepository.countWriter();
+    }
+    
     public User getById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> 
@@ -69,8 +73,7 @@ public class UserService {
     public User create(User data){
         Role writerRole = roleRepository.getById(3L);
         
-        UUID uuid = UUID.randomUUID();
-        String encrypt = appSecurityConfig.passwordEncoder().encode(uuid.toString());
+        String encrypt = appSecurityConfig.passwordEncoder().encode(data.getPassword());
         
         //SET USER
         User user = User.builder()
@@ -89,8 +92,8 @@ public class UserService {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "utf-8");
-            String messageInput = "please change your default password to a new password via the following link";
-            String message = templateEngine.process("EmailUpdate", buildContext(messageInput, user.getUsername(), uuid.toString(), token.getTokenCode()));
+            String messageInput = "By clicking on the link below, you can activate your account";
+            String message = templateEngine.process("EmailUpdate", buildContext(messageInput, user.getUsername(), token.getTokenCode()));
             messageHelper.setTo(user.getEmail());
             messageHelper.setSubject("PaperLink [Set your new password]");
             messageHelper.setText(message, true);
@@ -156,12 +159,11 @@ public class UserService {
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Link expired");
     }
     
-    private Context buildContext(String message, String username, String password, String token) {
+    private Context buildContext(String message, String username, String token) {
         Context context = new Context();
         context.setVariable("hello", "Hello, " + username + " !");
-        context.setVariable("password", "Your default password = " + password);
         context.setVariable("message", message);
-        context.setVariable("token", "http://localhost:8089/profile/" + token);
+        context.setVariable("token", "http://localhost:8089/profile/activate/" + token);
 
         return context;
     }
