@@ -60,7 +60,7 @@ public class UserController {
 //        }
 
         userService.create(user);
-        return "redirect:/user";
+        return "redirect:/login";
     }
     
     

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mainOther.html}">
+
+<head>
+    <title>Forget Password</title>
+</head>
+
+<body>
+    <div class="content center-screen" layout:fragment="content">
+        <div class="row w-50">
+            <div class="col-4">
+                <img src="/image/logo2-10.svg" height="200" alt="logo">
+            </div>
+            <div class="col-8 text-start">
+                <h3>Insert your email address</h3><br>
+                <form th:action="@{/email/forget}" th:object="${emailSenderDto}" th:method="POST">
+                    <div class="pb-2 mb-2">
+                        <input type="text" class="form-control" th:field="*{to}">
+                        <!--<p th:if="${#fields.hasErrors('code')}" th:errors="*{code}">error message</p>-->
+                    </div>
+                    <button class="btn btn-dark" type="submit">Send Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

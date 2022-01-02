@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -62,6 +63,10 @@ public class UserService {
     public void delete(Long id) {
         restTemplate
                 .delete(url + "/" + id, User.class);
+    }
+    
+    public ResponseEntity<Integer> countWriter() {
+        return restTemplate.postForEntity(url + "/count", null, Integer.class);
     }
     
 }

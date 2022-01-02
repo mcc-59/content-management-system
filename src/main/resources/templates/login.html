@@ -4,40 +4,72 @@
 <head>
     <link rel="stylesheet" th:href="@{/css/login.css}" />
     <script src="https://kit.fontawesome.com/9500ac2a7d.js" crossorigin="anonymous"></script>
-    <title>PaperLink Login</title>
+    <title>Title Page</title>
 </head>
 
 <body>
     <div class="content center-screen" layout:fragment="content">
-        <div>
-            <div class="container-login" id="container-login">
-                <div class="box box-1 bg-light">
-                    <form>
-                        <h1>Sign in</h1><br>
-                        <input type="text" class="form-input  border" placeholder="Username">
-                        <!-- <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">error message</p> -->
-                        <input type="password" class="form-input  border" placeholder="Password">
-                        <!-- <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">error message</p> -->
-                        <br>
-                        <div class="w-100 d-flex justify-content-center">
-                            <a href="#">Forgot Password?</a>
-                        </div>
-                        <button class="btn btn-dark" type="submit">Signin</button>
-    
-                    </form>
-                </div>
-                <div class="box right-1">
-                    <div style="width: 100%">
-                        <h1>Join us!</h1>
-                        <p>Register your account here</p>
-                        <button class="btn-right" id="signup">Signup</button>
+        <div class="container-login" id="container-login">
+            <div class="box box-1 bg-light">
+                <form>
+                    <h1>Sign in</h1><br>
+                    <input type="text" class="form-control" placeholder="Username"><br>
+                    <!-- <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">error message</p> -->
+                    <input type="password" class="form-control" placeholder="Password">
+                    <!-- <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">error message</p> -->
+                    <br>
+                    <div class="w-100 d-flex justify-content-center">
+                        <a href="/profile">Forgot Password?</a>
                     </div>
-    
+                    <button class="btn btn-dark" type="submit">Signin</button>
+
+                </form>
+            </div>
+            <div class="box right-1">
+                <div style="width: 100%">
+                    <h1>Join us!</h1>
+                    <p>Register your account here</p>
+                    <button type="button" class="btn-right justify-content-center align-items-center"
+                        data-bs-toggle="modal" data-bs-target="#signupModal">
+                        Signup
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <div layout:fragment="modal-section" class="modal fade" id="signupModal" tabindex="-1" role="dialog"
+        aria-labelledby="signupModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLongTitle">Create Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="signupForm" th:action="@{/user/form}" th:object="${user}" th:method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Full Name:</label>
+                            <input type="text" class="form-control" th:field="*{fullName}">
+
+                            <label>Username:</label>
+                            <input type="text" class="form-control" th:field="*{username}">
+
+                            <label>Password:</label>
+                            <input type="text" class="form-control" th:field="*{password}">
+
+                            <label>Email:</label>
+                            <input type="text" class="form-control" th:field="*{email}">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-dark">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
