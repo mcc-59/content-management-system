@@ -50,9 +50,15 @@ public class ProfileController {
         return "redirect:/login";
     }
     
-    @GetMapping
+    @GetMapping("/forget")
     public String forgetPass(EmailSenderDto emailSenderDto){
         return "forgetPass";
+    }
+    
+    //TEST SWAL
+    @GetMapping("/swal")
+    public String swal(){
+        return "testPage";
     }
     
     

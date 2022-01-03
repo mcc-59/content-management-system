@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
     
     @GetMapping
-    public String login(Model model, User user) {
+    public String login(User user) {
         return "login";
     }
     

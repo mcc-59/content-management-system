@@ -14,3 +14,49 @@
   text-align: center;
   min-height: 100vh;
 }
+
+.thumbnail {
+  max-width: 612px;
+  max-height: 460px;
+}
+
+.description-text {
+  padding-top: 15px;
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+}
+
+.description-text-card {
+  padding-top: 15px;
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.card-title {
+  min-height: 116px;
+}
+
+.center-cropped {
+  width: 612px;
+  height: 450px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.indent {
+  text-indent: 50px;
+}
+
+.views {
+  position:absolute;                 
+  bottom:0;                         
+  left:0;                         
+}

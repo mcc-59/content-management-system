@@ -18,11 +18,30 @@
                         <input type="text" class="form-control" th:field="*{password}">
                         <!--<p th:if="${#fields.hasErrors('code')}" th:errors="*{code}">error message</p>-->
                     </div>
-                    <button class="btn btn-dark" type="submit">Send Request</button>
+                    <button class="btn btn-dark swal" type="submit">Update Password</button>
                 </form>
             </div>
         </div>
     </div>
+    <th:block layout:fragment="scripts">
+        <script>
+            $('.swal').click(function (e) {
+                e.preventDefault();
+                var updateform = this.form;
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Check your email to activate your account',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        updateform.submit();
+                    }
+                })
+            })
+        </script>
+    </th:block>
 
 </body>
 

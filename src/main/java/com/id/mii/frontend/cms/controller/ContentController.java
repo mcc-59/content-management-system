@@ -7,6 +7,7 @@ package com.id.mii.frontend.cms.controller;
 
 import com.id.mii.frontend.cms.model.Content;
 import com.id.mii.frontend.cms.service.ContentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ContentController {
     
     private ContentService contentService;
-
+    
+    @Autowired
     public ContentController(ContentService contentService) {
         this.contentService = contentService;
     }

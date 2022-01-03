@@ -5,6 +5,9 @@
  */
 package com.id.mii.frontend.cms.controller;
 
+import com.id.mii.frontend.cms.model.data.CategoryDto;
+import com.id.mii.frontend.cms.service.ContentHomeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +21,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
     
+    private ContentHomeService contentHomeService;
+    
+    @Autowired
+    public HomeController(ContentHomeService contentHomeService) {
+        this.contentHomeService = contentHomeService;
+    }
+    
+    
+    
     @GetMapping
-    public String home() {
+    public String home(Model model, CategoryDto categoryDto) {
+        model.addAttribute("trending", contentHomeService.getTrending());
+        model.addAttribute("topTen", contentHomeService.getFirstTen());
         return "index";
     }
 }
