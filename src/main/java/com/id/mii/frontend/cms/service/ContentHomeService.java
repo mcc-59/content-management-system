@@ -5,7 +5,6 @@
  */
 package com.id.mii.frontend.cms.service;
 
-import com.id.mii.frontend.cms.model.Content;
 import com.id.mii.frontend.cms.model.data.CategoryDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,45 +16,38 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  *
- * @author sihlihis
+ * @author akhma
  */
 @Service
-public class ContentService {
-    
+public class ContentHomeService {
     private RestTemplate restTemplate;
     
-    @Value("${api.baseUrl}/content")
+    @Value("${api.baseUrl}/content-home")
     private String url;
-
+    
     @Autowired
-    public ContentService(RestTemplate restTemplate) {
+    public ContentHomeService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
-
-    public List<CategoryDto> getAll() {
+    
+    public List<CategoryDto> getByCategoryId(Long id) {
+        return restTemplate
+                .exchange(url + "/category/" + id, HttpMethod.GET, null, 
+                        new ParameterizedTypeReference<List<CategoryDto>>() {})
+                .getBody();
+    }
+    
+    public List<CategoryDto> getFirstTen() {
         return restTemplate
                 .exchange(url, HttpMethod.GET, null, 
                         new ParameterizedTypeReference<List<CategoryDto>>() {})
                 .getBody();
     }
-
-    public CategoryDto getById(Long id) {
-        return restTemplate
-                .getForObject(url + "/" + id, CategoryDto.class);
-    }
-
-    public void create(Content content) {
-        restTemplate
-                .postForEntity(url, content, Content.class);
-    }
-
-    public void update(Long id, Content content) {
-        restTemplate
-                .put(url + "/" + id, content, Content.class);
-    }
     
-    public void delete(Long id) {
-        restTemplate
-                .delete(url + "/" + id, Content.class);
+    public CategoryDto getTrending() {
+        return restTemplate
+                .exchange(url + "/trending", HttpMethod.GET, null, 
+                        new ParameterizedTypeReference<CategoryDto>() {})
+                .getBody();
     }
 }

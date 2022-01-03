@@ -5,7 +5,10 @@
  */
 package com.id.mii.frontend.cms.model.data;
 
+import com.id.mii.frontend.cms.model.Status;
+import com.id.mii.frontend.cms.model.Type;
 import com.id.mii.frontend.cms.model.User;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -22,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CategoryDto {
-
+    
     private User user;
 
     private List<String> categories = new ArrayList<>();
@@ -36,4 +39,14 @@ public class CategoryDto {
     private Long views;
 
     private Boolean isLocked;
+    
+    private LocalDateTime publishDate;
+    
+    private LocalDateTime expiredDate;
+    
+    private Long id;
+    
+    private Status status;
+    
+    private Type type;
 }
