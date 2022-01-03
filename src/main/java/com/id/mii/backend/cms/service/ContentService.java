@@ -156,4 +156,16 @@ public class ContentService {
 
         return content;
     }
+    
+    public List<Content> findByCategory(Long categoryId){
+        return contentRepository.findContentByCategory(categoryId);
+    }
+    
+    public List<Content> findTopTen(){
+        return contentRepository.findFirstTen();
+    }
+    
+    public Content findTrending(){
+        return contentRepository.findTrendingContent();
+    }
 }
