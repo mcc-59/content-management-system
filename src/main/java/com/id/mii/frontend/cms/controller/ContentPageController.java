@@ -5,15 +5,18 @@
  */
 package com.id.mii.frontend.cms.controller;
 
+import com.id.mii.frontend.cms.model.data.CategoryDto;
 import com.id.mii.frontend.cms.service.CategoryService;
 import com.id.mii.frontend.cms.service.ContentHomeService;
 import com.id.mii.frontend.cms.service.ContentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -46,5 +49,11 @@ public class ContentPageController {
     public String getContent(Model model, @PathVariable("id") Long id) {
         model.addAttribute("content", contentService.getById(id));
         return "contentHome";
+    }
+    
+    @GetMapping("/content-category/{id}")
+    @ResponseBody
+    public List<CategoryDto> getContentCategory(@PathVariable("id") Long id) {
+        return contentHomeService.getByCategoryId(id);
     }
 }

@@ -53,16 +53,6 @@ public class ProfileController {
     @GetMapping("/forget")
     public String forgetPass(EmailSenderDto emailSenderDto){
         return "forgetPass";
-    }
-    
-    //TEST SWAL
-    @GetMapping("/swal")
-    public String swal(){
-        return "testPage";
-    }
-    
-    
-    
-    
+    }  
     
 }
