@@ -158,14 +158,36 @@ public class ContentService {
     }
     
     public List<Content> findByCategory(Long categoryId){
-        return contentRepository.findContentByCategory(categoryId);
+        LocalDateTime dateNow = LocalDateTime.now();
+        List<Content> activeContent = new ArrayList<Content>();
+        for (Content content : contentRepository.findContentByCategory(categoryId)){
+            if (dateNow.isBefore(content.getExpiredDate())) {
+                activeContent.add(content);
+            }
+        }
+        return activeContent;
     }
     
     public List<Content> findTopTen(){
-        return contentRepository.findFirstTen();
+        LocalDateTime dateNow = LocalDateTime.now();
+        List<Content> activeContent = new ArrayList<Content>();
+        for (Content content : contentRepository.findFirstTen()){
+        if (dateNow.isBefore(content.getExpiredDate())) {
+                activeContent.add(content);
+            }
+        }
+        return activeContent;
     }
     
     public Content findTrending(){
-        return contentRepository.findTrendingContent();
-    }
+        LocalDateTime dateNow = LocalDateTime.now();
+        List<Content> activeContent = new ArrayList<Content>();
+        for (Content content : contentRepository.findTrendingContent()){
+            if (dateNow.isBefore(content.getExpiredDate())) {
+                activeContent.add(content);
+            }
+        }
+        Content trending = activeContent.get(0);
+        return trending;
+        }
 }
