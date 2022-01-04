@@ -6,7 +6,10 @@
 package com.id.mii.frontend.cms.controller;
 
 import com.id.mii.frontend.cms.model.Content;
+import com.id.mii.frontend.cms.model.data.CategoryDto;
+import com.id.mii.frontend.cms.service.ContentHomeService;
 import com.id.mii.frontend.cms.service.ContentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -25,10 +29,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ContentController {
     
     private ContentService contentService;
+    private ContentHomeService contentHomeService;
     
     @Autowired
-    public ContentController(ContentService contentService) {
+    public ContentController(ContentService contentService, ContentHomeService contentHomeService) {
         this.contentService = contentService;
+        this.contentHomeService = contentHomeService;
     }
     
     @GetMapping
@@ -36,6 +42,7 @@ public class ContentController {
         model.addAttribute("contents", contentService.getAll());
         return "content/index";
     }
+
 
     @GetMapping("/form/{id}")
     public String getById(@PathVariable("id") Long id, Model model) {
@@ -46,6 +53,18 @@ public class ContentController {
     @GetMapping("/form")
     public String form(Content content) {
         return "content/form";
+    }
+    
+    @GetMapping("get-all")
+    @ResponseBody
+    public List<CategoryDto> getAll() {
+        return contentHomeService.getFirstTen();
+    }
+    
+    @GetMapping("get-trending")
+    @ResponseBody
+    public CategoryDto getTrending() {
+        return contentHomeService.getTrending();
     }
 
     @PostMapping
