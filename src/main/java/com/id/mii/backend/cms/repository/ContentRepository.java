@@ -18,13 +18,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContentRepository extends JpaRepository<Content, Long>{
     
-    @Query(value = "SELECT * FROM tb_content AS c WHERE c.id IN (SELECT content_id FROM tb_content_category WHERE category_id = ?1) ORDER BY publish_date;", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_content AS c WHERE c.id IN (SELECT content_id FROM tb_content_category WHERE category_id = ?1) AND c.status_id = 3 ORDER BY publish_date;", nativeQuery = true)
     List<Content> findContentByCategory(Long categoryId);
     
-    @Query(value = "SELECT * FROM tb_content WHERE views = (SELECT MAX(views) FROM tb_content) LIMIT 1;", nativeQuery = true)
-    Content findTrendingContent();
+    @Query(value = "SELECT * FROM tb_content ORDER BY views DESC;", nativeQuery = true)
+    List<Content> findTrendingContent();
     
-    @Query(value = "SELECT * FROM tb_content ORDER BY publish_date LIMIT 10;", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_content WHERE tb_content.status_id = 3 ORDER BY publish_date LIMIT 10;", nativeQuery = true)
     List<Content> findFirstTen();
 }
     
