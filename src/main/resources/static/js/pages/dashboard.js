@@ -4,7 +4,6 @@
  * Description:
  *      This is a demo file used only for the main dashboard (index.html)
  **/
-
 $(function () {
   'use strict'
 
@@ -52,7 +51,7 @@ $(function () {
   //- BAR CHART -
   //-------------
   var areaChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['Kesehatan', 'Olahraga', 'Politik', 'Seni', 'Teknologi', 'June', 'July'],
     datasets: [
       {
         label: 'Digital Goods',

@@ -5,6 +5,9 @@
  */
 package com.id.mii.frontend.cms.controller;
 
+import com.id.mii.frontend.cms.service.ContentHomeService;
+import com.id.mii.frontend.cms.service.DashboardDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +19,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class DashboardController {
+    private DashboardDetailService dashboardDetailService;
+    private ContentHomeService contentHomeService;
+    
+    @Autowired
+    public DashboardController(DashboardDetailService dashboardDetailService, ContentHomeService contentHomeService) {
+        this.dashboardDetailService = dashboardDetailService;
+        this.contentHomeService = contentHomeService;
+    }
     
     @GetMapping("/dashboard")
-    public String contentWriterDashboard() {
+    public String contentWriterDashboard(Model model) {
+        model.addAttribute("totalContent", dashboardDetailService.totalContent());
+        model.addAttribute("totalView", dashboardDetailService.totalView());
+        model.addAttribute("totalPending", dashboardDetailService.totalPending());
+        model.addAttribute("totalReject", dashboardDetailService.totalReject());
+        model.addAttribute("topTen", contentHomeService.getFirstTen());
+        model.addAttribute("topView", contentHomeService.getTopView());
         return "writer/index";
     }
     
@@ -33,7 +50,13 @@ public class DashboardController {
     }
     
     @GetMapping("/qc/dashboard")
-    public String qualityControlDashboard() {
+    public String qualityControlDashboard(Model model) {
+        model.addAttribute("totalContent", dashboardDetailService.totalContent());
+        model.addAttribute("totalView", dashboardDetailService.totalView());
+        model.addAttribute("totalPending", dashboardDetailService.totalPending());
+        model.addAttribute("totalWriter", dashboardDetailService.totalWriter());
+        model.addAttribute("topTen", contentHomeService.getFirstTen());
+        model.addAttribute("topView", contentHomeService.getTopView());
         return "qc/index";
     }
     

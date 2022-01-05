@@ -5,7 +5,7 @@
  */
 package com.id.mii.frontend.cms.service;
 
-import com.id.mii.frontend.cms.model.data.CategoryDto;
+import com.id.mii.frontend.cms.model.data.ContentDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,24 +30,31 @@ public class ContentHomeService {
         this.restTemplate = restTemplate;
     }
     
-    public List<CategoryDto> getByCategoryId(Long id) {
+    public List<ContentDto> getByCategoryId(Long id) {
         return restTemplate
                 .exchange(url + "/category/" + id, HttpMethod.GET, null, 
-                        new ParameterizedTypeReference<List<CategoryDto>>() {})
+                        new ParameterizedTypeReference<List<ContentDto>>() {})
                 .getBody();
     }
     
-    public List<CategoryDto> getFirstTen() {
+    public List<ContentDto> getFirstTen() {
         return restTemplate
                 .exchange(url, HttpMethod.GET, null, 
-                        new ParameterizedTypeReference<List<CategoryDto>>() {})
+                        new ParameterizedTypeReference<List<ContentDto>>() {})
                 .getBody();
     }
     
-    public CategoryDto getTrending() {
+    public List<ContentDto> getTopView() {
+        return restTemplate
+                .exchange(url + "/view", HttpMethod.GET, null, 
+                        new ParameterizedTypeReference<List<ContentDto>>() {})
+                .getBody();
+    }
+    
+    public ContentDto getTrending() {
         return restTemplate
                 .exchange(url + "/trending", HttpMethod.GET, null, 
-                        new ParameterizedTypeReference<CategoryDto>() {})
+                        new ParameterizedTypeReference<ContentDto>() {})
                 .getBody();
     }
 }
