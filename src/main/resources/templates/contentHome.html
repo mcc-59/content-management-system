@@ -11,7 +11,7 @@
         <div class="px-4 pt-5 px-md-5 mt-4 mb-0 text-dark rounded bg-cream">
             <div class="row">
                 <div class="col-md-6 px-0 bg-cream center-cropped">
-                    <img src="/image/senam.jpg" width="100%" role="img"></img>
+                    <img th:src="@{/image/{id}.jpg (id=${content.id})}" width="100%" role="img"></img>
                 </div>
                 <div class="col-md-6 ps-5">
                     <h1 class="display-4 fst-italic fw-bold me-2 border-bottom" th:text="${content.title}"></h1>
@@ -20,6 +20,8 @@
                     <h5 class="my-3 me-2 fw-normal">Published date: <span class="fw-light" th:text="${content.publishDate}"></span></h5>
                 </div>
             </div>
+
+            
             <div class="bg-light text-justify p-5 indent">
                 <p th:text="${content.body}"></p>
             </div>

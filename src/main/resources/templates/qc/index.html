@@ -35,7 +35,7 @@
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>121</h3>
+                                    <h3 th:text="${totalWriter}"></h3>
 
                                     <p>Total Writer</p>
                                 </div>
@@ -50,7 +50,7 @@
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>352</h3>
+                                    <h3 th:text="${totalContent}"></h3>
 
                                     <p>Total Content</p>
                                 </div>
@@ -65,7 +65,7 @@
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>4412</h3>
+                                    <h3 th:text="${totalView}"></h3>
 
                                     <p>Total Views</p>
                                 </div>
@@ -80,7 +80,7 @@
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>12</h3>
+                                    <h3 th:text="${totalPending}"></h3>
 
                                     <p>Pending Approval</p>
                                 </div>
@@ -138,30 +138,16 @@
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th style="width: 40%">Title</th>
-                                                <th>Views</th>
-                                                <th>Published Date</th>
+                                                <th style="width: 40%">Author</th>
+                                                <th>Title</th>
+                                                <th>View</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Presto</td>
-                                                <td>Opera 9.0</td>
-                                                <td>Win 95+ / OSX.3+</td>
+                                            <tr th:each="content, i : ${topView}">
+                                                <td th:text="${content.user.fullName}"></td>
+                                                <td th:text="${content.title}"></td>
+                                                <td th:text="${content.views}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -195,45 +181,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Win 95+</td>
+                                            <tr th:each="content, i : ${topTen}">
+                                                <td th:text="${content.title}"></td>
+                                                <td th:text="${content.publishDate}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
