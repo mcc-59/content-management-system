@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CategoryDto {
-
+    
     private User user;
 
     private List<String> categories = new ArrayList<>();
