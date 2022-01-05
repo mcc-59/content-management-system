@@ -20,10 +20,12 @@ and open the template in the editor.
                     <th>Body</th>
                     <th>Category</th>
                     <th>Views</th>
+                    <th>Views</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="content, i : ${contents}">
+                    <td th:text="${content}"></td>
                     <td th:text="${i.index + 1}"></td>
                     <td th:text="${content.title}"></td>
                     <td th:text="${content.body}"></td>

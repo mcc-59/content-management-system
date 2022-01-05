@@ -15,11 +15,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author sihlihis
  */
 @Controller
-@RequestMapping("/dashboard")
 public class DashboardController {
     
-    @GetMapping
-    public String home() {
-        return "dashboard/index";
+    @GetMapping("/dashboard")
+    public String contentWriterDashboard() {
+        return "writer/index";
+    }
+    
+    @GetMapping("/newcontent")
+    public String addContent() {
+        return "writer/new-content";
+    }
+    
+    @GetMapping("/contenthistory")
+    public String contentHistory() {
+        return "writer/content-history";
+    }
+    
+    @GetMapping("/qc/dashboard")
+    public String qualityControlDashboard() {
+        return "qc/index";
+    }
+    
+    @GetMapping("/qc/managecontent")
+    public String manageContent() {
+        return "qc/manage-content";
+    }
+    
+    @GetMapping("/qc/managewriter")
+    public String manageWriter() {
+        return "qc/manage-writer";
+    }
+    
+    @GetMapping("/admin/dashboard")
+    public String adminDashboard() {
+        return "admin/index";
+    }
+    
+    @GetMapping("/admin/manageuser")
+    public String manageUser() {
+        return "admin/manage-user";
     }
 }
