@@ -6,8 +6,10 @@
 package com.id.mii.frontend.cms.controller;
 
 import com.id.mii.frontend.cms.model.User;
+import com.id.mii.frontend.cms.model.data.LoginRequestDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +24,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
     
     @GetMapping
-    public String login(User user) {
+    public String login(User user, LoginRequestDto loginRequestDto) {
         return "login";
+    }
+    
+    @PostMapping("/login")
+    public String login(LoginRequestDto loginRequestDto, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "login";
+        }
+
+
+        return "redirect:/";
     }
     
     @PostMapping("/logout")
     public String logout(){
 //        SecurityContextHolder.getContext().setAuthentication(null);
-        System.out.println("cie logout");
         return "redirect:/login?logout=true";
     }
     
