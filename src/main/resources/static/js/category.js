@@ -14,7 +14,7 @@ function getByCategoryId(id) {
                 target.append(
                     '<div class="col">' +
                     '<div class="card shadow-sm">' +
-                    '<img src="/image/covid.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225"' +
+                    '<img src="/image/'+ el.id + '.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225"' +
                     'role="img" focusable="false" preserveAspectRatio="xMidYMid slice">' +
                     '<div class="card-body">' +
                     '<div calss="card-title" style="height: 116px;">' + '<h2 class="text-center">' + el.title + '</h2>' +

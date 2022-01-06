@@ -11,15 +11,15 @@
     <div class="content center-screen" layout:fragment="content">
         <div class="container-login" id="container-login">
             <div class="box box-1 bg-light">
-                <form>
+                <form th:action="@{/login/login}" th:object="${loginRequestDto}" th:method="POST">
                     <h1>Sign in</h1><br>
-                    <input type="text" class="form-control" placeholder="Username"><br>
+                    <input type="text" th:field="*{username}" class="form-control" placeholder="Username"><br>
                     <!-- <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">error message</p> -->
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
                     <!-- <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">error message</p> -->
                     <br>
                     <div class="w-100 d-flex justify-content-center">
-                        <a href="/profile">Forgot Password?</a>
+                        <a href="/profile/forget">Forgot Password?</a>
                     </div>
                     <button class="btn btn-dark" type="submit">Signin</button>
 
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <button type="submit" class="btn btn-dark swal">Create Account</button>
+                        <button id="signupButton" type="submit" class="btn btn-dark swal">Create Account</button>
                     </div>
                 </form>
             </div>

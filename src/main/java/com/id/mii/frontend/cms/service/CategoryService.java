@@ -6,34 +6,53 @@
 package com.id.mii.frontend.cms.service;
 
 import com.id.mii.frontend.cms.model.Category;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
  *
- * @author akhma
+ * @author sihlihis
  */
 @Service
 public class CategoryService {
 
     private RestTemplate restTemplate;
-
+    
     @Value("${api.baseUrl}/category")
     private String url;
 
-    @Autowired
     public CategoryService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public Category getById(Long id) {
-        return restTemplate.exchange(url + "/" + id, HttpMethod.GET, null, new ParameterizedTypeReference<Category>() {
-        }).getBody();
+    public List<Category> getAll() {
+        return restTemplate
+                .exchange(url, HttpMethod.GET, null, 
+                        new ParameterizedTypeReference<List<Category>>() {})
+                .getBody();
     }
 
+    public Category getById(Long id) {
+        return restTemplate
+                .getForObject(url + "/" + id, Category.class);
+    }
+
+    public void create(Category category) {
+        restTemplate
+                .postForEntity(url, category, Category.class);
+    }
+
+    public void update(Long id, Category category) {
+        restTemplate
+                .put(url + "/" + id, category, Category.class);
+    }
+    
+    public void delete(Long id) {
+        restTemplate
+                .delete(url + "/" + id, Category.class);
+    }
 }

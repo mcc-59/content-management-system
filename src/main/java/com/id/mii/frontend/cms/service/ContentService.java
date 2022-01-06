@@ -6,7 +6,7 @@
 package com.id.mii.frontend.cms.service;
 
 import com.id.mii.frontend.cms.model.Content;
-import com.id.mii.frontend.cms.model.data.CategoryDto;
+import com.id.mii.frontend.cms.model.data.ContentDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,16 +32,16 @@ public class ContentService {
         this.restTemplate = restTemplate;
     }
 
-    public List<CategoryDto> getAll() {
+    public List<ContentDto> getAll() {
         return restTemplate
                 .exchange(url, HttpMethod.GET, null, 
-                        new ParameterizedTypeReference<List<CategoryDto>>() {})
+                        new ParameterizedTypeReference<List<ContentDto>>() {})
                 .getBody();
     }
 
-    public CategoryDto getById(Long id) {
+    public ContentDto getById(Long id) {
         return restTemplate
-                .getForObject(url + "/" + id, CategoryDto.class);
+                .getForObject(url + "/" + id, ContentDto.class);
     }
 
     public void create(Content content) {

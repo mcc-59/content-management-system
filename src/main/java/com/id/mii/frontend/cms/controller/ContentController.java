@@ -6,7 +6,7 @@
 package com.id.mii.frontend.cms.controller;
 
 import com.id.mii.frontend.cms.model.Content;
-import com.id.mii.frontend.cms.model.data.CategoryDto;
+import com.id.mii.frontend.cms.model.data.ContentDto;
 import com.id.mii.frontend.cms.service.ContentHomeService;
 import com.id.mii.frontend.cms.service.ContentService;
 import java.util.List;
@@ -57,13 +57,13 @@ public class ContentController {
     
     @GetMapping("get-all")
     @ResponseBody
-    public List<CategoryDto> getAll() {
+    public List<ContentDto> getAll() {
         return contentHomeService.getFirstTen();
     }
     
     @GetMapping("get-trending")
     @ResponseBody
-    public CategoryDto getTrending() {
+    public ContentDto getTrending() {
         return contentHomeService.getTrending();
     }
 

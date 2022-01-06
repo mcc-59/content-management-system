@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/writer.html}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>AdminLTE 3 | Dashboard</title>
+
+        <!-- daterange picker -->
+        <link rel="stylesheet" th:href="@{plugins/daterangepicker/daterangepicker.css}">
+        <!-- iCheck for checkboxes and radio inputs -->
+        <link rel="stylesheet" th:href="@{plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+        <!-- Bootstrap Color Picker -->
+        <link rel="stylesheet" th:href="@{plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css}">
+        <!-- Tempusdominus Bootstrap 4 -->
+        <link rel="stylesheet" th:href="@{plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
+        <!-- Select2 -->
+        <link rel="stylesheet" th:href="@{plugins/select2/css/select2.min.css}">
+        <link rel="stylesheet" th:href="@{plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}">
+        <!-- CodeMirror -->
+        <link rel="stylesheet" th:href="@{plugins/codemirror/codemirror.css}">
+        <link rel="stylesheet" th:href="@{plugins/codemirror/theme/monokai.css}">
+        <!-- Bootstrap4 Duallistbox -->
+        <link rel="stylesheet" th:href="@{plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css}">
+        <!-- BS Stepper -->
+        <link rel="stylesheet" th:href="@{plugins/bs-stepper/css/bs-stepper.min.css}">
+        <!-- dropzonejs -->
+        <link rel="stylesheet" th:href="@{plugins/dropzone/min/dropzone.min.css}">
+    </head>
+    <body>
+        <!-- Content Wrapper. Contains page content -->
+        <div layout:fragment="content" class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>New Content</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">New Content</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <form th:action="@{/content/form}" th:method="POST" th:object="${content}">
+                        <div class="card card-default">
+                            <div class="card-body pb-0">
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label for="title">Title Content</label>
+                                            <input th:field="*{title}" type="text" class="form-control p-1" id="title" aria-describedby="titleContent" placeholder="Title Content">
+                                          </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- SELECT2 EXAMPLE -->
+                            <div class="card-body pb-0 pt-0">
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label>Category Content</label>
+                                            <select class="select2bs4"
+                                                    multiple="multiple" 
+                                                    data-placeholder="Select category"
+                                                    style="width: 100%;">
+                                                <option>Alabama</option>
+                                                <option>Alaska</option>
+                                                <option>California</option>
+                                                <option>Delaware</option>
+                                                <option>Tennessee</option>
+                                                <option>Texas</option>
+                                                <option>Washington</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <div class="card-body pt-1">
+                                <textarea th:field="*{body}" id="summernote">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                                <button id="save" class="btn btn-outline-dark" type="submit">Save</button>
+                            </div>
+                        </div>
+                    <!-- /.card -->
+                    </form>
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </body>
+    <th:block layout:fragment="scripts">
+        <!-- Select2 -->
+        <script th:src="@{plugins/select2/js/select2.full.min.js}"></script>
+        <!-- CodeMirror -->
+        <script th:src="@{plugins/codemirror/codemirror.js}"></script>
+        <script th:src="@{plugins/codemirror/mode/css/css.js}"></script>
+        <script th:src="@{plugins/codemirror/mode/xml/xml.js}"></script>
+        <script th:src="@{plugins/codemirror/mode/htmlmixed/htmlmixed.js}"></script>
+        <!-- Bootstrap4 Duallistbox -->
+        <script th:src="@{plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js}"></script>
+        <!-- InputMask -->
+        <script th:src="@{plugins/moment/moment.min.js}"></script>
+        <script th:src="@{plugins/inputmask/jquery.inputmask.min.js}"></script>
+        <!-- date-range-picker -->
+        <script th:src="@{plugins/daterangepicker/daterangepicker.js}"></script>
+        <!-- bootstrap color picker -->
+        <script th:src="@{plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js}"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script th:src="@{plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
+        <!-- Bootstrap Switch -->
+        <script th:src="@{plugins/bootstrap-switch/js/bootstrap-switch.min.js}"></script>
+        <!-- BS-Stepper -->
+        <script th:src="@{plugins/bs-stepper/js/bs-stepper.min.js}"></script>
+        <!-- dropzonejs -->
+        <script th:src="@{plugins/dropzone/min/dropzone.min.js}"></script>
+        <script>
+            $(function () {
+                //Initialize Select2 Elements
+                $('.select2').select2();
+
+                //Initialize Select2 Elements
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                });
+
+                // Summernote
+                $('#summernote').summernote({
+                    height: "300px",
+                });
+                
+                $('#save').click(function () {
+                    let testCode = $("#summernote").summernote("code");
+                    console.log(testCode);
+                    $("#summernote").summernote("reset");
+                });
+            });
+        </script>
+    </th:block>  
+</html>
