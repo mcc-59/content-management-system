@@ -60,6 +60,7 @@ public class ContentService {
         findAll.forEach(data -> {
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.setUser(data.getUser());
+            categoryDto.setType(data.getType());
             categoryDto.setTitle(data.getTitle());
             data.getContentCategories().forEach(contentCategory -> {
                 categoryDto.getCategories().add(contentCategory.getCategory().getName());
@@ -84,11 +85,11 @@ public class ContentService {
     }
 
     @Transactional
-    public ContentDto create(ContentDto contentDto) {
+    public Content create(ContentDto contentDto) {
         User user = userService.getById(contentDto.getUser());
         Status status = statusService.getById(1L);
         Type type = typeService.getById(contentDto.getType());
-        
+        System.out.println(contentDto);
         Content contentData = Content
                 .builder()
                 .user(user)
@@ -98,8 +99,8 @@ public class ContentService {
                 .type(type)
                 .title(contentDto.getTitle())
                 .body(contentDto.getBody())
-                .views(contentDto.getViews())
-                .isLocked(contentDto.getIsLocked())
+                .views(0L)
+                .isLocked(true)
                 .build();
 
         Content content = contentRepository.save(contentData);
@@ -131,7 +132,7 @@ public class ContentService {
         
         mediaRepository.saveAll(medias);
         
-        return contentDto;
+        return content;
     }
 
     public Content update(Long id, Content content) {
