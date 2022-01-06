@@ -75,6 +75,17 @@ $(function () {
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
         data: [65, 59, 80, 81, 56, 55, 40]
+      },
+      {
+        label: 'Electronics',
+        backgroundColor: 'rgba(210, 214, 222, 1)',
+        borderColor: 'rgba(210, 214, 222, 1)',
+        pointRadius: false,
+        pointColor: 'rgba(210, 214, 222, 1)',
+        pointStrokeColor: '#c1c7d1',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(220,220,220,1)',
+        data: [65, 59, 80, 81, 56, 55, 40]
       }
     ]
   }
@@ -83,8 +94,10 @@ $(function () {
   var barChartData = $.extend(true, {}, areaChartData)
   var temp0 = areaChartData.datasets[0]
   var temp1 = areaChartData.datasets[1]
-  barChartData.datasets[0] = temp1
-  barChartData.datasets[1] = temp0
+  var temp2 = areaChartData.datasets[2]
+  barChartData.datasets[0] = temp0
+  barChartData.datasets[1] = temp1
+  barChartData.datasets[2] = temp2
 
   var barChartOptions = {
     responsive              : true,
@@ -97,4 +110,8 @@ $(function () {
     data: barChartData,
     options: barChartOptions
   })
+  
+//  $.ajax({
+//    url: 
+//  })
 })

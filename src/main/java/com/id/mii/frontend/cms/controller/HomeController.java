@@ -5,7 +5,7 @@
  */
 package com.id.mii.frontend.cms.controller;
 
-import com.id.mii.frontend.cms.model.data.CategoryDto;
+import com.id.mii.frontend.cms.model.data.ContentDto;
 import com.id.mii.frontend.cms.service.ContentHomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class HomeController {
     
     
     @GetMapping
-    public String home(Model model, CategoryDto categoryDto) {
+    public String home(Model model, ContentDto categoryDto) {
         model.addAttribute("trending", contentHomeService.getTrending());
         model.addAttribute("topTen", contentHomeService.getFirstTen());
         return "index";
