@@ -7,6 +7,7 @@ package com.id.mii.frontend.cms.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
@@ -14,26 +15,30 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @author akhma
  */
 @Configuration
+@EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**").permitAll()
+                .antMatchers("/css/**", "/js/**", "/image/**", "/content/**", "/page/**", 
+                        "/login/**", "/profile/**", "/email/**").permitAll()
                 .antMatchers("/login").permitAll()
-                .anyRequest().permitAll()
+                .antMatchers("/error").permitAll()
+                .antMatchers("/").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .successForwardUrl("/dashboard")
+                .successForwardUrl("/")
                 .failureForwardUrl("/login?error=true")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .permitAll();
+                .logoutSuccessUrl("/login?logout=true");
     }
     
     

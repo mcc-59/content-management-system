@@ -39,7 +39,7 @@ public class ContentPageController {
     }
       
     
-    @GetMapping("category/{id}")
+    @GetMapping("/category/{id}")
     public String getCategory(Model model, @PathVariable("id") Long id) {
         model.addAttribute("title", categoryService.getById(id));
         model.addAttribute("contents", contentHomeService.getByCategoryId(id));
