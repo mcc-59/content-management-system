@@ -7,6 +7,7 @@ package com.id.mii.frontend.cms.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @author akhma
  */
 @Configuration
+@EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
@@ -27,13 +29,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .successForwardUrl("/dashboard")
+                .successForwardUrl("/")
                 .failureForwardUrl("/login?error=true")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .permitAll();
+                .logoutSuccessUrl("/login?logout=true");
     }
     
     

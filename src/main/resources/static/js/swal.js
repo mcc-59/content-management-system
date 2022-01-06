@@ -1,4 +1,3 @@
-
 $('.swal').click(function (e) {
     e.preventDefault();
     var signupform = this.form;
@@ -11,6 +10,7 @@ $('.swal').click(function (e) {
     }).then((result) => {
         if (result.isConfirmed) {
             signupform.submit();
+            signupform.modal('toggle');
         }
     })
 })

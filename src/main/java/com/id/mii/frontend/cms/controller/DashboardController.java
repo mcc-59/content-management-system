@@ -5,6 +5,7 @@
  */
 package com.id.mii.frontend.cms.controller;
 
+import com.id.mii.frontend.cms.model.Content;
 import com.id.mii.frontend.cms.service.ContentHomeService;
 import com.id.mii.frontend.cms.service.DashboardDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class DashboardController {
     }
     
     @GetMapping("/newcontent")
-    public String addContent() {
+    public String addContent(Content content) {
         return "writer/new-content";
     }
     
