@@ -36,31 +36,31 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping
     public ResponseEntity<List<Category>> getAll() {
         return new ResponseEntity(categoryService.getAll(), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping("/{id}")
     public ResponseEntity<Category> getById(@PathVariable("id") Long id) {
         return new ResponseEntity(categoryService.getById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC')")
     @PostMapping
     public ResponseEntity<Category> create(@RequestBody Category category) {
         return new ResponseEntity(categoryService.create(category), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC')")
     @PutMapping("/{id}")
     public ResponseEntity<Category> update(@PathVariable("id") Long id, @RequestBody Category category) {
         return new ResponseEntity(categoryService.update(id, category), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Category> delete(@PathVariable("id") Long id) {
         return new ResponseEntity(categoryService.delete(id), HttpStatus.OK);

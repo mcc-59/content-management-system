@@ -6,6 +6,7 @@
 package com.id.mii.backend.cms.controller;
 
 import com.id.mii.backend.cms.model.Content;
+import com.id.mii.backend.cms.model.data.CategoryDto;
 import com.id.mii.backend.cms.model.data.ContentDto;
 import com.id.mii.backend.cms.service.ContentService;
 import java.util.List;
@@ -37,32 +38,32 @@ public class ContentController {
         this.contentService = contentService;
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping
-    public ResponseEntity<List<Content>> getAll() {
+    public ResponseEntity<List<CategoryDto>> getAll() {
         return new ResponseEntity(contentService.getAll(), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping("/{id}")
     public ResponseEntity<Content> getById(@PathVariable("id") Long id) {
         contentService.countViews(id);
         return new ResponseEntity(contentService.getById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @PostMapping
     public ResponseEntity<Content> create(@RequestBody ContentDto contentDto) {
         return new ResponseEntity(contentService.create(contentDto), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @PutMapping("/{id}")
     public ResponseEntity<Content> update(@PathVariable("id") Long id, @RequestBody Content content) {
         return new ResponseEntity(contentService.update(id, content), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Content> delete(@PathVariable("id") Long id) {
         return new ResponseEntity(contentService.delete(id), HttpStatus.OK);

@@ -36,31 +36,31 @@ public class MediaController {
         this.mediaService = mediaService;
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping
     public ResponseEntity<List<Media>> getAll() {
         return new ResponseEntity(mediaService.getAll(), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @GetMapping("/{id}")
     public ResponseEntity<Media> getById(@PathVariable("id") Long id) {
         return new ResponseEntity(mediaService.getById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @PostMapping
     public ResponseEntity<Media> create(@RequestBody Media media) {
         return new ResponseEntity(mediaService.create(media), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @PutMapping("/{id}")
     public ResponseEntity<Media> update(@PathVariable("id") Long id, @RequestBody Media media) {
         return new ResponseEntity(mediaService.update(id, media), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Media> delete(@PathVariable("id") Long id) {
         return new ResponseEntity(mediaService.delete(id), HttpStatus.OK);

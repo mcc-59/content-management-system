@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/type")
-@PreAuthorize("hasAnyRole('ADMIN', 'QC')")
+//@PreAuthorize("hasAnyRole('ADMIN', 'QC')")
 public class TypeController {
 
     private final TypeService typeService;
@@ -37,31 +37,31 @@ public class TypeController {
         this.typeService = typeService;
     }
 
-    @PreAuthorize("hasAuthority('READ_DATA')")
+//    @PreAuthorize("hasAuthority('READ_DATA')")
     @GetMapping
     public ResponseEntity<List<Type>> getAll() {
         return new ResponseEntity(typeService.getAll(), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('READ_DATA')")
+//    @PreAuthorize("hasAuthority('READ_DATA')")
     @GetMapping("/{id}")
     public ResponseEntity<Type> getById(@PathVariable("id") Long id) {
         return new ResponseEntity(typeService.getById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('CREATE_DATA')")
+//    @PreAuthorize("hasAuthority('CREATE_DATA')")
     @PostMapping
     public ResponseEntity<Type> create(@RequestBody Type type) {
         return new ResponseEntity(typeService.create(type), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('UPDATE_DATA')")
+//    @PreAuthorize("hasAuthority('UPDATE_DATA')")
     @PutMapping("/{id}")
     public ResponseEntity<Type> update(@PathVariable("id") Long id, @RequestBody Type type) {
         return new ResponseEntity(typeService.update(id, type), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasAuthority('DELETE_DATA')")
+//    @PreAuthorize("hasAuthority('DELETE_DATA')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Type> delete(@PathVariable("id") Long id) {
         return new ResponseEntity(typeService.delete(id), HttpStatus.OK);
