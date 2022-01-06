@@ -5,6 +5,7 @@
  */
 package com.id.mii.backend.cms.model.data;
 
+import com.id.mii.backend.cms.model.Type;
 import com.id.mii.backend.cms.model.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,8 @@ public class CategoryDto {
     private User user;
     
     private List<String> categories = new ArrayList<>();
+    
+    private Type type;
     
     private String title;
     
