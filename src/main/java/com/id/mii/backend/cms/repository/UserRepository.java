@@ -24,7 +24,4 @@ public interface UserRepository extends JpaRepository<User, Long>{
     @Query(value = "SELECT * FROM tb_user WHERE role_id = 3 AND deleted IS NULL", nativeQuery = true)
     List<User> listWriter();
     
-    @Query(value = "SELECT COUNT(*) FROM tb_user WHERE role_id = 3;", nativeQuery = true)
-    Integer countWriter();
-    
 }
