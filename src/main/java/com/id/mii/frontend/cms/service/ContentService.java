@@ -47,6 +47,15 @@ public class ContentService {
         return restTemplate
                 .getForObject(url + "/" + id, ContentDto.class);
     }
+    
+    public List<Content> getContentByWriter(Long id) {
+        return restTemplate.exchange(
+                url + "/content-writer/" + id,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Content>>() {
+        }).getBody();
+    }
 
     public Content create(ContentDto contentDto) {
         HttpEntity<ContentDto> httpEntity = new HttpEntity<>(contentDto);

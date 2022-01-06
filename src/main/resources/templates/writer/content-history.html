@@ -42,24 +42,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Presto</td>
-                                                <td>Opera 9.0</td>
-                                                <td>Win 95+ / OSX.3+</td>
+                                            <tr th:each="content : ${contents}">
+                                                <td th:text="${content.title}"></td>
+                                                <td th:text="${content.publishDate}"></td>
+                                                <td th:text="${content.status.name}"></td>
                                             </tr>
                                         </tbody>
                                     </table>

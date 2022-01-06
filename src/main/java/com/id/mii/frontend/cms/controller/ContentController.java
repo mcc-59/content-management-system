@@ -70,13 +70,6 @@ public class ContentController {
         model.addAttribute("content", contentService.getById(id));
         return "content/update-form";
     }
-
-//    @GetMapping("/form")
-//    public String form(Content content, Model model) {
-//        model.addAttribute("categories", categoryService.getAll());
-//        model.addAttribute("types", typeService.getAll());
-//        return "content/form";
-//    }
     
     @GetMapping("/getallcontents")
     @ResponseBody
@@ -84,11 +77,11 @@ public class ContentController {
         return contentService.getAll();
     }
     
-//    @GetMapping("getallcontent")
-//    @ResponseBody
-//    public List<Content> getAllContentByWriter(){
-//        return contentService.getAllContent();
-//    }
+    @GetMapping("/getallcontents/{id}")
+    @ResponseBody
+    public List<Content> getAllContentByWriter(@PathVariable("id") Long id){
+        return contentService.getContentByWriter(id);
+    }
     
     @GetMapping("get-all")
     @ResponseBody
@@ -101,25 +94,6 @@ public class ContentController {
     public Content getTrending() {
         return contentHomeService.getTrending();
     }
-
-//    @PostMapping("/form")
-//    public String create(ContentDto content, @RequestParam("image") MultipartFile multipartFile) throws IOException{
-//        content.setUser(2L);
-//        
-//        List<String> fileName = new ArrayList<>();
-//        fileName.add(StringUtils.cleanPath(multipartFile.getOriginalFilename()));
-//        content.setMedias(fileName);
-//        
-//        Content savedContent = contentService.create(content);
-//        System.out.println(savedContent);
-//        
-//        String uploadDir = "content-images/" + savedContent.getId();
-//        System.out.println(uploadDir);
-//        
-//        FileUploadUtil.saveFile(uploadDir, fileName.get(0), multipartFile);
-//                
-//        return "redirect:/content";
-//    }
 
     @PutMapping("/form/{id}")
     public String update(@PathVariable("id") Long id, Content content) {

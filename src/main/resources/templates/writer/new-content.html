@@ -108,8 +108,8 @@
                             <div class="card-body pt-1">
                                 <textarea th:field="*{body}" id="summernote" name="editordata"></textarea>
                                 <button sec:authorize="hasRole('WRITER')" id="save" class="btn btn-outline-dark" type="submit">Save</button>
-                                <button sec:authorize="hasRole('QC')" id="save" class="btn btn-outline-dark" type="submit">Approve</button>
-                                <button sec:authorize="hasRole('QC')" id="save" class="btn btn-outline-dark" type="submit">Reject</button>
+                                <button sec:authorize="hasRole('QC')" id="save" class="btn btn-outline-success" type="submit">Approve</button>
+                                <button sec:authorize="hasRole('QC')" id="save" class="btn btn-outline-warning" type="submit">Reject</button>
                             </div>
                         </div>
                         <!-- /.card -->
