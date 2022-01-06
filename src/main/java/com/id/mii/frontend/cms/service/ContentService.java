@@ -23,9 +23,9 @@ import org.springframework.web.client.RestTemplate;
  */
 @Service
 public class ContentService {
-    
+
     private RestTemplate restTemplate;
-    
+
     @Value("${api.baseUrl}/content")
     private String url;
 
@@ -35,10 +35,12 @@ public class ContentService {
     }
 
     public List<ContentResponse> getAll() {
-        return restTemplate
-                .exchange(url, HttpMethod.GET, null, 
-                        new ParameterizedTypeReference<List<ContentResponse>>() {})
-                .getBody();
+        return restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<ContentResponse>>() {
+        }).getBody();
     }
 
     public ContentDto getById(Long id) {
@@ -48,10 +50,10 @@ public class ContentService {
 
     public Content create(ContentDto contentDto) {
         HttpEntity<ContentDto> httpEntity = new HttpEntity<>(contentDto);
-        
+
         return restTemplate.exchange(
-                url, 
-                HttpMethod.POST, 
+                url,
+                HttpMethod.POST,
                 httpEntity,
                 new ParameterizedTypeReference<Content>() {
         }).getBody();
@@ -61,7 +63,7 @@ public class ContentService {
         restTemplate
                 .put(url + "/" + id, content, Content.class);
     }
-    
+
     public void delete(Long id) {
         restTemplate
                 .delete(url + "/" + id, Content.class);

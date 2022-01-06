@@ -5,6 +5,7 @@
  */
 package com.id.mii.frontend.cms.controller;
 
+import com.id.mii.frontend.cms.model.Content;
 import com.id.mii.frontend.cms.model.data.ContentDto;
 import com.id.mii.frontend.cms.service.CategoryService;
 import com.id.mii.frontend.cms.service.ContentHomeService;
@@ -53,7 +54,7 @@ public class ContentPageController {
     
     @GetMapping("/content-category/{id}")
     @ResponseBody
-    public List<ContentDto> getContentCategory(@PathVariable("id") Long id) {
+    public List<Content> getContentCategory(@PathVariable("id") Long id) {
         return contentHomeService.getByCategoryId(id);
     }
 }

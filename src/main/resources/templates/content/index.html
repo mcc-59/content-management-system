@@ -44,6 +44,10 @@ and open the template in the editor.
                     <td th:text="${type}"></td>
                     <td th:text="${type.name}"></td>
                 </tr>
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category}"></td>
+                    <td th:text="${category.name}"></td>
+                </tr>
             </tbody>
         </table>
     </body>

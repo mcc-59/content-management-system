@@ -47,30 +47,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <a th:href="@{/newcontent}">Update</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <a th:href="@{/newcontent}">Update</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Presto</td>
-                                                <td>Presto</td>
-                                                <td>Opera 9.0</td>
+                                            <tr th:each="content : ${contents}">
+                                                <td th:text="${content.user.fullName}"></td>
+                                                <td th:text="${content.title}"></td>
+                                                <td th:text="${content.publishDate}"></td>
                                                 <td style="text-align: center">
                                                     <a th:href="@{/newcontent}">Update</a>
                                                 </td>
@@ -99,7 +79,7 @@
         <script th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
         <script>
             $(function () {
-                $('#example2').DataTable({
+                let table = $('#example2').DataTable({
                     "paging": true,
                     "lengthChange": false,
                     "searching": false,
@@ -109,6 +89,14 @@
                     "responsive": true,
                 });
             });
+            
+//            $.ajax({
+//                url: '/content/getallcontents',
+//                type: 'GET',
+//                success: function (res) {
+//                    console.log(res);
+//                }
+//            });
         </script>
     </th:block>
 </body>

@@ -5,6 +5,7 @@
  */
 package com.id.mii.frontend.cms.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -23,18 +24,20 @@ import lombok.NoArgsConstructor;
 public class ContentResponse {
 
     private User user;
-
+    
     private List<String> categories = new ArrayList<>();
-
+    
     private Type type;
-
+    
     private String title;
-
+    
     private String body;
-
+    
+    private LocalDate publishDate;
+    
     private List<String> medias = new ArrayList<>();
-
+    
     private Long views;
-
+    
     private Boolean isLocked;
 }

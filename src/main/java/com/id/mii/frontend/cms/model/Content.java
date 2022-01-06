@@ -5,6 +5,7 @@
  */
 package com.id.mii.frontend.cms.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,17 +26,23 @@ public class Content {
     
     private User user;
     
-    private List<Category> categories;
+    private Status status;
+    
+    private LocalDateTime publishDate;
+    
+    private LocalDateTime expiredDate;
     
     private Type type;
-    
-    private Status status;
     
     private String title;
     
     private String body;
-
-    public Content(Long id) {
-        this.id = id;
-    }
+    
+    private List<Media> medias;
+    
+    private List<Category> categories;
+    
+    private Long views;
+    
+    private Boolean isLocked;
 }

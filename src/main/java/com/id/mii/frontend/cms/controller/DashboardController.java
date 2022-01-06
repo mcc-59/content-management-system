@@ -5,13 +5,27 @@
  */
 package com.id.mii.frontend.cms.controller;
 
+import com.id.mii.frontend.cms.model.Content;
+import com.id.mii.frontend.cms.model.data.ContentDto;
+import com.id.mii.frontend.cms.service.CategoryService;
 import com.id.mii.frontend.cms.service.ContentHomeService;
+import com.id.mii.frontend.cms.service.ContentService;
 import com.id.mii.frontend.cms.service.DashboardDetailService;
+import com.id.mii.frontend.cms.service.TypeService;
+import com.id.mii.frontend.cms.service.UserService;
+import com.id.mii.frontend.cms.utility.FileUploadUtil;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -21,11 +35,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DashboardController {
     private DashboardDetailService dashboardDetailService;
     private ContentHomeService contentHomeService;
-    
+    private CategoryService categoryService;
+    private TypeService typeService;
+    private ContentService contentService;
+    private UserService userService;
+
     @Autowired
-    public DashboardController(DashboardDetailService dashboardDetailService, ContentHomeService contentHomeService) {
+    public DashboardController(DashboardDetailService dashboardDetailService, ContentHomeService contentHomeService, CategoryService categoryService, TypeService typeService, ContentService contentService, UserService userService) {
         this.dashboardDetailService = dashboardDetailService;
         this.contentHomeService = contentHomeService;
+        this.categoryService = categoryService;
+        this.typeService = typeService;
+        this.contentService = contentService;
+        this.userService = userService;
     }
     
     @GetMapping("/dashboard")
@@ -40,8 +62,29 @@ public class DashboardController {
     }
     
     @GetMapping("/newcontent")
-    public String addContent() {
+    public String newContent(Content content, Model model) {
+        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("types", typeService.getAll());
         return "writer/new-content";
+    }
+    
+    @PostMapping("/newcontent")
+    public String create(ContentDto content, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+        content.setUser(3L);
+        System.out.println(content);
+        List<String> fileName = new ArrayList<>();
+        fileName.add(StringUtils.cleanPath(multipartFile.getOriginalFilename()));
+        content.setMedias(fileName);
+        
+        Content savedContent = contentService.create(content);
+        
+        String uploadDir = "./src/main/resources/static/image/" + savedContent.getId();
+        
+        System.out.println(uploadDir);
+        
+        FileUploadUtil.saveFile(uploadDir, fileName.get(0), multipartFile);
+                
+        return "redirect:/contenthistory";
     }
     
     @GetMapping("/contenthistory")
@@ -61,12 +104,14 @@ public class DashboardController {
     }
     
     @GetMapping("/qc/managecontent")
-    public String manageContent() {
+    public String manageContent(Model model) {
+        model.addAttribute("contents", contentService.getAll());
         return "qc/manage-content";
     }
     
     @GetMapping("/qc/managewriter")
-    public String manageWriter() {
+    public String manageWriter(Model model) {
+        model.addAttribute("writers", userService.findWriter());
         return "qc/manage-writer";
     }
     

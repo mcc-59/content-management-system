@@ -6,6 +6,7 @@
 package com.id.mii.frontend.cms.controller;
 
 import com.id.mii.frontend.cms.model.Content;
+import com.id.mii.frontend.cms.model.ContentResponse;
 import com.id.mii.frontend.cms.model.User;
 import com.id.mii.frontend.cms.model.data.ContentDto;
 import com.id.mii.frontend.cms.service.CategoryService;
@@ -59,6 +60,7 @@ public class ContentController {
     public String index(Model model) {
         model.addAttribute("contents", contentService.getAll());
         model.addAttribute("types", typeService.getAll());
+        model.addAttribute("categories", categoryService.getAll());
         return "content/index";
     }
 
@@ -69,43 +71,55 @@ public class ContentController {
         return "content/update-form";
     }
 
-    @GetMapping("/form")
-    public String form(Content content, Model model) {
-        model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("types", typeService.getAll());
-        return "content/form";
+//    @GetMapping("/form")
+//    public String form(Content content, Model model) {
+//        model.addAttribute("categories", categoryService.getAll());
+//        model.addAttribute("types", typeService.getAll());
+//        return "content/form";
+//    }
+    
+    @GetMapping("/getallcontents")
+    @ResponseBody
+    public List<ContentResponse> getAllContentByWriters() {
+        return contentService.getAll();
     }
+    
+//    @GetMapping("getallcontent")
+//    @ResponseBody
+//    public List<Content> getAllContentByWriter(){
+//        return contentService.getAllContent();
+//    }
     
     @GetMapping("get-all")
     @ResponseBody
-    public List<ContentDto> getAll() {
+    public List<Content> getAll() {
         return contentHomeService.getFirstTen();
     }
     
     @GetMapping("get-trending")
     @ResponseBody
-    public ContentDto getTrending() {
+    public Content getTrending() {
         return contentHomeService.getTrending();
     }
 
-    @PostMapping("/form")
-    public String create(ContentDto content, @RequestParam("image") MultipartFile multipartFile) throws IOException{
-        content.setUser(2L);
-        
-        List<String> fileName = new ArrayList<>();
-        fileName.add(StringUtils.cleanPath(multipartFile.getOriginalFilename()));
-        content.setMedias(fileName);
-        
-        Content savedContent = contentService.create(content);
-        System.out.println(savedContent);
-        
-        String uploadDir = "content-images/" + savedContent.getId();
-        System.out.println(uploadDir);
-        
-        FileUploadUtil.saveFile(uploadDir, fileName.get(0), multipartFile);
-                
-        return "redirect:/content";
-    }
+//    @PostMapping("/form")
+//    public String create(ContentDto content, @RequestParam("image") MultipartFile multipartFile) throws IOException{
+//        content.setUser(2L);
+//        
+//        List<String> fileName = new ArrayList<>();
+//        fileName.add(StringUtils.cleanPath(multipartFile.getOriginalFilename()));
+//        content.setMedias(fileName);
+//        
+//        Content savedContent = contentService.create(content);
+//        System.out.println(savedContent);
+//        
+//        String uploadDir = "content-images/" + savedContent.getId();
+//        System.out.println(uploadDir);
+//        
+//        FileUploadUtil.saveFile(uploadDir, fileName.get(0), multipartFile);
+//                
+//        return "redirect:/content";
+//    }
 
     @PutMapping("/form/{id}")
     public String update(@PathVariable("id") Long id, Content content) {

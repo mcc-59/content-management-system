@@ -40,34 +40,16 @@
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th>Id</th>
                                                 <th>Username</th>
-                                                <th>Join Date</th>
-                                                <th>Total Content</th>
-                                                <th>Total Views</th>
+                                                <th>Email</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>Win 95+</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Presto</td>
-                                                <td>Presto</td>
-                                                <td>Opera 9.0</td>
-                                                <td>Win 95+ / OSX.3+</td>
+                                            <tr th:each="writer : ${writers}">
+                                                <td th:text="${writer.id}"></td>
+                                                <td th:text="${writer.username}"></td>
+                                                <td th:text="${writer.email}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
