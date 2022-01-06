@@ -27,6 +27,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+import com.id.mii.backend.cms.repository.DashboardDetailRepository;
 
 /**
  *
@@ -58,10 +59,6 @@ public class UserService {
     
     public List<User> findWriter(){
         return userRepository.listWriter();
-    }
-    
-    public Integer countWriter(){
-        return userRepository.countWriter();
     }
     
     public User getById(Long id){

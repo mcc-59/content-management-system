@@ -190,4 +190,15 @@ public class ContentService {
         Content trending = activeContent.get(0);
         return trending;
         }
+    
+    public List<Content> listByView(){
+        LocalDateTime dateNow = LocalDateTime.now();
+        List<Content> activeContent = new ArrayList<Content>();
+        for (Content content : contentRepository.findTrendingContent()){
+        if (dateNow.isBefore(content.getExpiredDate())) {
+                activeContent.add(content);
+            }
+        }
+        return activeContent.stream().limit(3).collect(Collectors.toList());
+    }
 }

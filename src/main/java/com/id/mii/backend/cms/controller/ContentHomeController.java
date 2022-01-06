@@ -46,5 +46,10 @@ public class ContentHomeController {
         return new ResponseEntity(contentService.findTrending(), HttpStatus.OK);
     }
     
+    @GetMapping("/view")
+    public ResponseEntity<List<Content>> listByView() {
+        return new ResponseEntity(contentService.listByView(), HttpStatus.OK);
+    }
+    
     
 }

@@ -5,12 +5,6 @@
  */
 package com.id.mii.backend.cms.model.data;
 
-import com.id.mii.backend.cms.model.Category;
-import com.id.mii.backend.cms.model.Media;
-import com.id.mii.backend.cms.model.Status;
-import com.id.mii.backend.cms.model.Type;
-import com.id.mii.backend.cms.model.User;
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
