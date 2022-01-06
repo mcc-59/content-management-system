@@ -9,6 +9,8 @@ import com.id.mii.frontend.cms.model.User;
 import com.id.mii.frontend.cms.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,13 +54,6 @@ public class UserController {
     
     @PostMapping("/form")
     public String create(User user) {
-
-//        if (result.hasErrors()) {
-//            log.error(countryDto.toString());
-//            model.addAttribute("regions", regionService.getAll());
-//            return "country/form";
-//        }
-
         userService.create(user);
         return "redirect:/login";
     }

@@ -7,11 +7,14 @@ package com.id.mii.frontend.cms.service;
 
 import com.id.mii.frontend.cms.model.data.LoginRequestDto;
 import com.id.mii.frontend.cms.model.data.LoginResponseDto;
+import com.id.mii.frontend.cms.utility.BasicHeader;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,7 +48,7 @@ public class LoginService {
                     .postForEntity(url, request, LoginResponseDto.class);
             
             if (res.getStatusCode() == HttpStatus.OK) {
-                setAuthentication(res.getBody());
+                setAuthentication(res.getBody(),request.getPassword());
                 return true;
             }
             
@@ -55,8 +58,9 @@ public class LoginService {
         return false;
     }
     
-    private void setAuthentication(LoginResponseDto res){
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(res.getUsername(), null, getAuthorities(res.getAuthorities()));
+    private void setAuthentication(LoginResponseDto res, String password){
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(res.getUsername(), 
+                BasicHeader.createBasicToken(res.getUsername(), password), getAuthorities(res.getAuthorities()));
         
         SecurityContextHolder.getContext().setAuthentication(authToken);
     }

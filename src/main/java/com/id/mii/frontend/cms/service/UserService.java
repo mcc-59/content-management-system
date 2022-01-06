@@ -52,12 +52,13 @@ public class UserService {
                         new ParameterizedTypeReference<User>() {}).getBody();
     }
     
-    public void create (User user){
-        restTemplate.postForEntity(url, user, User.class);
+    public User create (User user){
+        return restTemplate
+                .exchange(url, HttpMethod.POST, new HttpEntity(user), new ParameterizedTypeReference<User>() {}).getBody();
     }
     
     public void update (Long id, User user){
-        restTemplate.put(url + "/" + id, user, User.class);
+        restTemplate.exchange(url + "/" + id, HttpMethod.PUT, new HttpEntity(user), new ParameterizedTypeReference<User>() {}).getBody();
     }
     
     public void delete(Long id) {
