@@ -22,6 +22,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ContentResponse {
+    
+    private Long id;
 
     private User user;
     

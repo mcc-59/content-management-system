@@ -89,13 +89,13 @@ and open the template in the editor.
                             </li>
                             <li sec:authorize="hasAnyRole('QC', 'ADMIN')" class="nav-item">
                                 <a th:href="@{managewriter}" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <i class="nav-icon fas fa-address-card"></i>
                                     <p>Manage Writer</p>
                                 </a>
                             </li>
                             <li sec:authorize="hasRole('QC')" class="nav-item">
                                 <a th:href="@{managecontent}" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <i class="nav-icon fas fa-tasks"></i>
                                     <p>Manage Content</p>
                                 </a>
                             </li>

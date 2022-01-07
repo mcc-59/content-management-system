@@ -49,7 +49,72 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <form id="contentForm" th:action="@{/newcontent}" th:object="${content}" th:method="POST" enctype="multipart/form-data">
+                    <form sec:authorize="hasRole('WRITER')" id="contentForm" th:action="@{/newcontent}" th:object="${content}" th:method="POST" enctype="multipart/form-data">
+                        <div class="card card-default">
+                            <div class="card-body pb-0">
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label for="title">Title Content</label>
+                                            <input th:field="*{title}" type="text" class="form-control p-1" id="title" aria-describedby="titleContent" placeholder="Title Content">
+                                        </div>
+                                        <div class="form-group d-inline-block">
+                                            <label for="thumbnail">Thumbnail Content</label>
+                                            <input type="file" name="image" accept="image/png, image/jpeg" class="form-control-file" id="thumbnail">
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- SELECT2 EXAMPLE -->
+                            <div class="card-body pb-0 pt-0">
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label>Category Content</label>
+                                            <select th:field="*{categories}" class="select2bs4" multiple="multiple" data-placeholder="Select Category Content" style="width: 100%;">
+                                                <option th:each="category : ${categories}" 
+                                                        th:value="${category.id}" 
+                                                        th:text="${category.name}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <div class="card-body pb-0 pt-0">
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label>Type Content</label>
+                                            <select id="contentType" th:field="*{type}" class="form-control select2 p-1" style="width: 100%;">
+                                                <option th:each="type : ${types}" 
+                                                        th:value="${type.id}" 
+                                                        th:text="${type.name}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <div class="card-body pt-1">
+                                <textarea th:field="*{body}" id="summernote" name="editordata"></textarea>
+                                <button sec:authorize="hasRole('WRITER')" id="save" class="btn btn-outline-dark" type="submit">Save</button>
+                                <button sec:authorize="hasRole('QC')" id="save" class="btn btn-outline-success" type="submit">Approve</button>
+                                <button sec:authorize="hasRole('QC')" id="save" class="btn btn-outline-warning" type="submit">Reject</button>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                    </form>
+                    <form sec:authorize="hasRole('QC')" id="contentForm" th:action="@{/newcontent}" th:object="${content}" th:method="POST" enctype="multipart/form-data">
                         <div class="card card-default">
                             <div class="card-body pb-0">
                                 <div class="row">

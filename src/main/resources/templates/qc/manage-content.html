@@ -40,21 +40,21 @@
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Username</th>
-                                                <th style="width: 30%">Content Title</th>
+                                                <th style="width: 2%">No.</th>
+                                                <th>Name</th>
+                                                <th style="width: 30%">Title</th>
                                                 <th>Created Date</th>
                                                 <th style="text-align: center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="content : ${contents}">
+                                            <tr th:each="content, i : ${contents}">
+                                                <td th:text="${i.index + 1 + '.'}"></td>
                                                 <td th:text="${content.user.fullName}"></td>
                                                 <td th:text="${content.title}"></td>
                                                 <td th:text="${content.publishDate}"></td>
                                                 <td style="text-align: center">
-                                                    <form th:action="@{/newcontent}" th:method="GET">
-                                                        <button class="btn btn-link" type="submit">Update</button>
-                                                    </form>
+                                                    <a th:href="@{/newcontent/{id} (id = ${content.id})}">Update</a>
                                                 </td>
                                             </tr>
                                         </tbody>

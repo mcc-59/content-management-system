@@ -36,13 +36,15 @@
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th style="width: 2%">No.</th>
                                                 <th style="width: 48%">Title</th>
                                                 <th>Created</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="content : ${contents}">
+                                            <tr th:each="content, i : ${contents}">
+                                                <td th:text="${i.index + 1 + '.'}"></td>
                                                 <td th:text="${content.title}"></td>
                                                 <td th:text="${content.publishDate}"></td>
                                                 <td th:text="${content.status.name}"></td>

@@ -140,13 +140,15 @@
                                 <table id="tableView" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="width: 40%">Author</th>
-                                            <th>Title</th>
+                                            <th style="width: 2%">No.</th>
+                                            <th>Author</th>
+                                            <th style="width: 40%">Title</th>
                                             <th>View</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="content, i : ${topView}">
+                                            <td th:text="${i.index + 1 + '.'}"></td>
                                             <td th:text="${content.user.fullName}"></td>
                                             <td th:text="${content.title}"></td>
                                             <td th:text="${content.views}"></td>

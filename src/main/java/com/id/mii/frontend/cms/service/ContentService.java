@@ -43,9 +43,13 @@ public class ContentService {
         }).getBody();
     }
 
-    public ContentDto getById(Long id) {
-        return restTemplate
-                .getForObject(url + "/" + id, ContentDto.class);
+    public Content getById(Long id) {
+        return restTemplate.exchange(
+                url + "/" + id,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<Content>() {
+        }).getBody();
     }
     
     public List<Content> getContentByWriter(Long id) {

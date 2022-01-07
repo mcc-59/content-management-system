@@ -40,15 +40,17 @@
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <th style="width: 2%">No.</th>
                                                 <th>Username</th>
+                                                <th>Id</th>
                                                 <th>Email</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="writer : ${writers}">
-                                                <td th:text="${writer.id}"></td>
+                                            <tr th:each="writer, i : ${writers}">
+                                                <td th:text="${i.index + 1 + '.'}"></td>
                                                 <td th:text="${writer.username}"></td>
+                                                <td th:text="${writer.id}"></td>
                                                 <td th:text="${writer.email}"></td>
                                             </tr>
                                         </tbody>
