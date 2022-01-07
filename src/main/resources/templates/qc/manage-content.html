@@ -52,7 +52,9 @@
                                                 <td th:text="${content.title}"></td>
                                                 <td th:text="${content.publishDate}"></td>
                                                 <td style="text-align: center">
-                                                    <a th:href="@{/newcontent}">Update</a>
+                                                    <form th:action="@{/newcontent}" th:method="GET">
+                                                        <button class="btn btn-link" type="submit">Update</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         </tbody>

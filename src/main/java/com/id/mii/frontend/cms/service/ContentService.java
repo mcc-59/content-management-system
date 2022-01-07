@@ -56,6 +56,15 @@ public class ContentService {
                 new ParameterizedTypeReference<List<Content>>() {
         }).getBody();
     }
+    
+    public List<Content> getContentByUsername(String username) {
+        return restTemplate.exchange(
+                url + "/contentwriter/" + username,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Content>>() {
+        }).getBody();
+    }
 
     public Content create(ContentDto contentDto) {
         HttpEntity<ContentDto> httpEntity = new HttpEntity<>(contentDto);

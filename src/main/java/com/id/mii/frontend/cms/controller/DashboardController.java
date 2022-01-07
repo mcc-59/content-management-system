@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -88,9 +90,15 @@ public class DashboardController {
         return "redirect:/contenthistory";
     }
     
-    @GetMapping("/contenthistory/{id}")
-    public String contentHistory(Model model, @PathVariable("id") Long userId) {
-//        model.addAttribute("contents", contentService.getContentByWriter(userId));
+    @GetMapping("/newcontent/{id}")
+    public String getContent(@PathVariable("id") Long id, Content content, Model model) {
+        model.addAttribute("content", contentService.getById(id));
+        return "writer/new-content";
+    }
+    
+    @GetMapping("/contenthistory")
+    public String contentHistory(Authentication auth, Model model) {
+        model.addAttribute("contents", contentService.getContentByUsername(auth.getName()));
         return "writer/content-history";
     }
     
