@@ -28,8 +28,6 @@ public class HomeController {
         this.contentHomeService = contentHomeService;
     }
     
-    
-    
     @GetMapping
     public String home(Model model, ContentDto categoryDto) {
         model.addAttribute("trending", contentHomeService.getTrending());

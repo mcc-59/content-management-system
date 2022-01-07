@@ -58,7 +58,7 @@ public class UserService {
     }
     
     public void update (Long id, User user){
-        restTemplate.put(url + "/" + id, user, User.class);
+        restTemplate.exchange(url + "/" + id, HttpMethod.PUT, new HttpEntity(user), new ParameterizedTypeReference<User>() {}).getBody();
     }
     
     public void delete(Long id) {

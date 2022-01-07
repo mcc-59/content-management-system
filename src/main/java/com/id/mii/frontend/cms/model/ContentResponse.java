@@ -3,12 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.id.mii.frontend.cms.model.data;
+package com.id.mii.frontend.cms.model;
 
-import com.id.mii.frontend.cms.model.Status;
-import com.id.mii.frontend.cms.model.Type;
-import com.id.mii.frontend.cms.model.User;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -24,11 +20,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ContentDto {
-    
-    private Long user;
+public class ContentResponse {
+
+    private User user;
 
     private List<String> categories = new ArrayList<>();
+
+    private Type type;
 
     private String title;
 
@@ -39,14 +37,4 @@ public class ContentDto {
     private Long views;
 
     private Boolean isLocked;
-    
-    private LocalDateTime publishDate;
-    
-    private LocalDateTime expiredDate;
-    
-    private Long id;
-    
-    private Long status;
-    
-    private Long type;
 }
