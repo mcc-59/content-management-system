@@ -59,10 +59,11 @@ public class ContentService {
         
         findAll.forEach(data -> {
             CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setId(data.getId());
             categoryDto.setUser(data.getUser());
             categoryDto.setType(data.getType());
             categoryDto.setTitle(data.getTitle());
-            categoryDto.setPublishDate(data.getPublishDate().toLocalDate());
+            categoryDto.setPublishDate(data.getPublishDate());
             data.getContentCategories().forEach(contentCategory -> {
                 categoryDto.getCategories().add(contentCategory.getCategory().getName());
             });
