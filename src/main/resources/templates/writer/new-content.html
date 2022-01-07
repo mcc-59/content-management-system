@@ -49,51 +49,53 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <div class="card card-default">
-                        <div class="card-body pb-0">
-                            <div class="row">
-                                <!-- /.col -->
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="title">Title Content</label>
-                                        <input type="text" class="form-control p-1" id="title" aria-describedby="titleContent" placeholder="Title Content">
-                                      </div>
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                        <!-- SELECT2 EXAMPLE -->
-                        <div class="card-body pb-0 pt-0">
-                            <div class="row">
-                                <!-- /.col -->
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label>Category Content</label>
-                                        <select class="select2bs4"
-                                                multiple="multiple" 
-                                                data-placeholder="Select category"
-                                                style="width: 100%;">
-                                            <option>Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </select>
+                    <form th:action="@{/content/form}" th:method="POST" th:object="${content}">
+                        <div class="card card-default">
+                            <div class="card-body pb-0">
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label for="title">Title Content</label>
+                                            <input th:field="*{title}" type="text" class="form-control p-1" id="title" aria-describedby="titleContent" placeholder="Title Content">
+                                          </div>
                                     </div>
+                                    <!-- /.col -->
                                 </div>
-                                <!-- /.col -->
+                                <!-- /.row -->
                             </div>
-                            <!-- /.row -->
+                            <!-- SELECT2 EXAMPLE -->
+                            <div class="card-body pb-0 pt-0">
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label>Category Content</label>
+                                            <select class="select2bs4"
+                                                    multiple="multiple" 
+                                                    data-placeholder="Select category"
+                                                    style="width: 100%;">
+                                                <option>Alabama</option>
+                                                <option>Alaska</option>
+                                                <option>California</option>
+                                                <option>Delaware</option>
+                                                <option>Tennessee</option>
+                                                <option>Texas</option>
+                                                <option>Washington</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <div class="card-body pt-1">
+                                <textarea th:field="*{body}" id="summernote">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                                <button id="save" class="btn btn-outline-dark" type="submit">Save</button>
+                            </div>
                         </div>
-                        <div class="card-body pt-1">
-                            <textarea id="summernote">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
-                            <button id="save" class="btn btn-outline-dark" type="submit">Save</button>
-                        </div>
-                    </div>
-                <!-- /.card -->
+                    <!-- /.card -->
+                    </form>
                 </div>
                 <!-- /.container-fluid -->
             </section>
@@ -138,7 +140,7 @@
 
                 // Summernote
                 $('#summernote').summernote({
-                    height: "150px",
+                    height: "300px",
                 });
                 
                 $('#save').click(function () {

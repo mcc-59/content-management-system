@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ContentDto {
     
-    private Long user;
+    private User user;
 
     private List<String> categories = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class ContentDto {
     
     private Long id;
     
-    private Long status;
+    private Status status;
     
-    private Long type;
+    private Type type;
 }

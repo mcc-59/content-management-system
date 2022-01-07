@@ -19,30 +19,20 @@ and open the template in the editor.
                     <th>Title</th>
                     <th>Body</th>
                     <th>Category</th>
-                    <th>Category</th>
-                    <th>Views</th>
-                    <th>Views</th>
                     <th>Views</th>
                     <th>Views</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="content, i : ${contents}">
-                    <td th:text="${i.index + 1}"></td>
                     <td th:text="${content}"></td>
-                    <td th:text="${content.user}"></td>
-                    <td th:text="${content.medias}"></td>
-                    <td th:text="${content.type}"></td>
+                    <td th:text="${i.index + 1}"></td>
                     <td th:text="${content.title}"></td>
                     <td th:text="${content.body}"></td>
                     <td>
                         <span th:each="category : ${content.categories}"th:text="${category}"></span>
                     </td>
                     <td th:text="${content.views}"></td>
-                </tr>
-                <tr th:each="type : ${types}">
-                    <td th:text="${type}"></td>
-                    <td th:text="${type.name}"></td>
                 </tr>
             </tbody>
         </table>
