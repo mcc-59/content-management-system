@@ -7,6 +7,7 @@ package com.id.mii.backend.cms.model.data;
 
 import com.id.mii.backend.cms.model.Type;
 import com.id.mii.backend.cms.model.User;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,8 @@ public class CategoryDto {
     private String title;
     
     private String body;
+    
+    private LocalDate publishDate;
     
     private List<String> medias = new ArrayList<>();
     

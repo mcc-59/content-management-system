@@ -19,19 +19,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DashboardDetailRepository extends JpaRepository<Content, Long> {
 
-    @Query(value = "SELECT COUNT(*) FROM tb_user WHERE role_id = 3;", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM tb_user WHERE role_id = 3", nativeQuery = true)
     Integer countWriter();
 
-    @Query(value = "SELECT COUNT(*) FROM tb_content WHERE tb_content.status_id = 3;", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM tb_content WHERE tb_content.status_id = 3", nativeQuery = true)
     Integer countContent();
 
-    @Query(value = "SELECT SUM(views) FROM tb_content WHERE tb_content.status_id=3;", nativeQuery = true)
+    @Query(value = "SELECT SUM(views) FROM tb_content WHERE tb_content.status_id=3", nativeQuery = true)
     Integer countViews();
 
-    @Query(value = "SELECT COUNT(*) FROM tb_content WHERE tb_content.status_id = 1;", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM tb_content WHERE tb_content.status_id = 1", nativeQuery = true)
     Integer countPending();
 
-    @Query(value = "SELECT COUNT(*) FROM tb_content WHERE tb_content.status_id = 1;", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM tb_content WHERE tb_content.status_id = 1", nativeQuery = true)
     Integer countRejected();
 
     

@@ -50,6 +50,16 @@ public class ContentController {
         contentService.countViews(id);
         return new ResponseEntity(contentService.getById(id), HttpStatus.OK);
     }
+    
+    @GetMapping("/content-writer/{id}")
+    public ResponseEntity<Content> getContentByWriter(@PathVariable("id") Long userId) {
+        return new ResponseEntity(contentService.getContentByWriter(userId), HttpStatus.OK);
+    }
+    
+    @GetMapping("/contentwriter/{username}")
+    public ResponseEntity<Content> getContentByUsername(@PathVariable("username") String username) {
+        return new ResponseEntity(contentService.getContentByUsername(username), HttpStatus.OK);
+    }
 
 //    @PreAuthorize("hasAnyRole('ADMIN', 'QC', 'WRITER')")
     @PostMapping

@@ -62,6 +62,7 @@ public class ContentService {
             categoryDto.setUser(data.getUser());
             categoryDto.setType(data.getType());
             categoryDto.setTitle(data.getTitle());
+            categoryDto.setPublishDate(data.getPublishDate().toLocalDate());
             data.getContentCategories().forEach(contentCategory -> {
                 categoryDto.getCategories().add(contentCategory.getCategory().getName());
             });
@@ -201,5 +202,13 @@ public class ContentService {
             }
         }
         return activeContent.stream().limit(3).collect(Collectors.toList());
+    }
+    
+    public List<Content> getContentByWriter(Long userId) {
+        return contentRepository.findContentByWriter(userId);
+    }
+    
+    public List<Content> getContentByUsername(String username) {
+        return contentRepository.findContentByUsername(username);
     }
 }
