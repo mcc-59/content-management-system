@@ -12,7 +12,7 @@
                 <img src="/image/logo2-10.svg" height="200" alt="logo">
             </div>
             <div class="col-8 text-start">
-                <h3>Insert your new password</h3><br>
+                <h3>Password Update</h3><br>
                 <form th:action="@{/profile/{code} (code = ${token})}" th:object="${user}" th:method="PUT">
                     <div class="pb-2 mb-2">
                         <input type="text" class="form-control" th:field="*{password}">
